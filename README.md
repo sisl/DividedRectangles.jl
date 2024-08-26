@@ -84,27 +84,7 @@ The `optimize` function is the primary function of the `DividedRectangles` modul
 
 **Returns:** 
 - A vector representing the coordinates of the optimal point found.
-
-### `get_potentially_optimal_rects`
-This function identifies the hyper-rectangles that are most likely to contain the global minimum.
-
-**Arguments:**
-- `rectangles`: A vector of `DirectRectangle` objects.
-- `min_radius`: The minimum allowable size of a hyper-rectangle.
-
-**Returns:**
-- A vector of `DirectRectangle` objects identified as potentially optimal.
-
-### `divide`
-This function divides a given hyper-rectangle into smaller rectangles to explore further.
-
-**Arguments:**
-- `rect`: The `DirectRectangle` object to be divided.
-- `g`: A function that maps points within the unit hypercube to the original search space.
-
-**Returns:**
-- A vector of smaller `DirectRectangle` objects created by dividing the input rectangle.
-
+- 
 ## Credits
 
 Contributors to this package include Anshrin Srivastava, Mykel Kochenderfer, and Tim Wheeler.
