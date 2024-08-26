@@ -1,6 +1,6 @@
 module DividedRectangles
 
-export direct
+export optimize
 
 # Structure to store information about each rectangle
 struct DirectRectangle
@@ -55,7 +55,7 @@ function divide(rect::DirectRectangle, g)
 end
 
 # Main function that runs the DIRECT optimization algorithm
-function direct(f, a::Vector{Float64}, b::Vector{Float64}, max_iterations::Int, min_radius::Float64)
+function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
     g = x -> f(x .* (b .- a) .+ a)
     n = length(a)
     initial_center = fill(0.5, n)
