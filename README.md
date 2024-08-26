@@ -84,7 +84,7 @@ The `optimize` function is the primary function of the `DividedRectangles` modul
 
 **Returns:** 
 - A vector representing the coordinates of the optimal point found.
-- 
+  
 ## Credits
 
 Contributors to this package include Anshrin Srivastava, Mykel Kochenderfer, and Tim Wheeler.
