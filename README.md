@@ -6,8 +6,8 @@
 
 
 ![Static Badge](https://img.shields.io/badge/doc-latest-blue)
-![Julia version](https://img.shields.io/badge/julia%20version-%5E1.6-blue)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-orange)](https://github.com/sisl/DividedRectangles.jl)
+![Julia version](https://img.shields.io/badge/julia%20version-%5E1.6-darkred)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-purple)](https://github.com/sisl/DividedRectangles.jl)
 [![License: MIT](https://img.shields.io/badge/License-MIT-teal.svg)](https://opensource.org/licenses/MIT)
 
 
