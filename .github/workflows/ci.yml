@@ -20,6 +20,6 @@ jobs:
     - name: Run tests
       run: julia --project=. -e 'using Pkg; Pkg.test()'
 
-    # Temporarily disable this step
+    # Disable this step if you want to bypass coverage submission for now
     # - name: Submit coverage
     #   run: julia --project=. -e 'using Coverage; Codecov.submit(process_folder())'
