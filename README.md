@@ -112,18 +112,63 @@ result = DividedRectangles.optimize(f, a, b)
 
 To better understand the optimization process, here are visualizations that represent different stages and aspects of the DIRECT algorithm's progress:
 
-1. ![Visualization 1](page_12.svg)
-2. ![Visualization 2](page_13.svg)
-3. ![Visualization 3](page_14.svg)
-4. ![Visualization 4](page_15.svg)
-5. ![Visualization 5](page_16.svg)
-6. ![Visualization 6](page_17.svg)
-7. ![Visualization 7](page_18.svg)
-8. ![Visualization 8](page_19.svg)
-9. ![Visualization 9](page_20.svg)
-10. ![Visualization 10](page_21.svg)
+*Figure 7.12: Lipschitz Lower Bound vs. Divided Rectangles Lower Bound:*  
+![Image 14](https://github.com/user-attachments/assets/60879517-d179-48c5-8db1-a0536396948f)
 
-Each image corresponds to a specific step or result in the optimization process, helping to visualize how the algorithm explores the search space and converges to a solution.
+
+The left contour plot shows the Lipschitz lower bound using five function evaluations. The right contour plot shows the approximation made by DIRECT, which divides the region into hyper-rectangles—one centered about each design point. Making this assumption allows for the rapid calculation of the minimum of the lower bound.
+
+---
+
+*Figure 7.13: Lipschitz Lower Bound for Different Lipschitz Constants:*  
+![Image 12](https://github.com/user-attachments/assets/f17d34e5-b180-4a5a-bb1e-0ba1d42890e8)
+
+
+The Lipschitz lower bound for different Lipschitz constants (`l`). The estimated minimum changes locally as the Lipschitz constant is varied, and the region in which the minimum lies can also vary.
+
+---
+
+Figure 7.14: DIRECT Lower Bound for Different Lipschitz Constants:*
+![Image 13](https://github.com/user-attachments/assets/f4785cb8-84b1-4b8e-8d36-f066739176eb)
+
+The DIRECT lower bound for different Lipschitz constants (`l`). The lower bound is not continuous, and while the minimum does not change locally, it can change regionally as the Lipschitz constant changes.
+
+---
+
+*Figure 7.15: Center-point Sampling with the DIRECT Scheme:*  
+![Image 21](https://github.com/user-attachments/assets/42b2c429-9a27-4eb7-833a-e63707157f77)
+
+Center-point sampling using the DIRECT scheme, which divides intervals into thirds.
+
+---
+
+*Figure 7.15: Center-point Sampling with the DIRECT Scheme:*  
+![Image 21](https://github.com/user-attachments/assets/42b2c429-9a27-4eb7-833a-e63707157f77)
+
+Center-point sampling using the DIRECT scheme, which divides intervals into thirds.
+
+---
+
+*Figure 7.18: Potentially-Optimal Hyper-Rectangle Identification:*  
+![Image 18](https://github.com/user-attachments/assets/882aa8ea-538c-4830-bdac-6579b8d38068)
+
+Potentially-optimal hyper-rectangle identification for a particular Lipschitz constant (`l`). Black dots represent DIRECT hyper-rectangles and their location in `(f(c), r)` space. The potentially optimal hyper-rectangles form a piecewise-linear boundary along the lower-right of this space.
+
+---
+
+*Figure 7.19: Piecewise Boundary of Potentially Optimal Intervals:*  
+![Image 20](https://github.com/user-attachments/assets/0d7184e2-a2b0-49cd-abdb-c9797365d569)
+
+The potentially optimal intervals for the DIRECT method form a piecewise boundary that encloses all intervals along the lower-right.
+
+---
+
+*Figure 7.20: DIRECT Method After 16 Iterations:*  
+![Image 17](https://github.com/user-attachments/assets/4cc10f72-5f7e-4b71-9118-01eafa095be9)
+
+The DIRECT method after 16 iterations on the Branin function. Each cell is bordered by white lines. The cells are much denser around the minima of the Branin function, as the DIRECT method procedurally increases its resolution in those regions.
+
+
 
 ## Credits
 
