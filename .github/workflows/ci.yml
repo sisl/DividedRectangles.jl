@@ -19,15 +19,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # This will run on all specified operating systems
-      - name: Run a one-line script
-        run: echo Hello, world! Running on ${{ matrix.os }}
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.6'  # specify the Julia version you want to use
 
-      # Run multiple commands as part of the CI process
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project on ${{ matrix.os }}
+      - name: Install dependencies
+        run: julia --project -e 'using Pkg; Pkg.instantiate()'
 
-                 
+      - name: Run tests with coverage
+        run: julia --project -e 'using Pkg; Pkg.test(coverage=true)'
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/*.json
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
