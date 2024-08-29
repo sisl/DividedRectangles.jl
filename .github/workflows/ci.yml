@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "add-tests-only" ]
+    branches: ["add-tests-only"]
   pull_request:
-    branches: [ "add-tests-only" ]
+    branches: ["add-tests-only"]
   workflow_dispatch:
 
 jobs:
@@ -19,31 +19,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v1
-        with:
-          version: '1.7'
+      # Setup Julia environment
+      - name: Setup Julia
+        uses: julia-actions/setup-julia@v2
 
-      - name: Install dependencies
-        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
-
-      - name: Run tests with coverage
-        run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
-        with:
-          file: ./coverage.txt
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: true
-
-      # This will run on all specified operating systems
-      - name: Run a one-line script
-        run: echo Hello, world! Running on ${{ matrix.os }}
-
-      # Run multiple commands as part of the CI process
-      - name: Run a multi-line script
+      # Run the Julia script
+      - name: Run tests
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project on ${{ matrix.os }}
+          julia --project=. -e 'using Pkg; Pkg.instantiate()'
+          julia --project=. -e 'using Pkg; Pkg.test()'
+
+      # Upload code coverage to Codecov
+      - name: Upload coverage to Codecov
+        run: |
+          julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
+
+      # Runs a one-line script to confirm job is running on all OSes
+      - name: Confirm OS
+        run: echo "Running on ${{ matrix.os }}"
+
+      # Optional: Add detailed logging
+      - name: Log system information
+        run: |
+          uname -a
+          julia --version
