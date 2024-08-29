@@ -30,7 +30,20 @@ To use the `DividedRectangles` module, start your code with:
 ```julia
 using DividedRectangles
 ```
+## Core Functions
 
+### `optimize`
+The `optimize` function is the primary function of the `DividedRectangles` module. It implements the DIRECT algorithm to find the minimum of a given objective function within specified bounds.
+
+**Arguments:**
+- `f`: The objective function to be minimized.
+- `a`: Vector of lower bounds for the search space.
+- `b`: Vector of upper bounds for the search space.
+- `max_iterations`: (Optional) The maximum number of iterations (default: 100).
+- `min_radius`: (Optional) The minimum radius of hyper-rectangles (default: 1e-5).
+
+**Returns:** 
+- A vector representing the coordinates of the optimal point found.
 ### Example: Univariate Optimization
 
 The following example demonstrates how to use the DIRECT algorithm to find the minimum of a univariate function:
@@ -83,20 +96,6 @@ The DIRECT algorithm does not require a known Lipschitz constant; therefore, it 
 
 The power of this algorithm stems from the fact that it works against any problem whose objective function contains a number of local minima, since it escapes local minima by systematically covering the entire search space.
 
-## Core Functions
-
-### `optimize`
-The `optimize` function is the primary function of the `DividedRectangles` module. It implements the DIRECT algorithm to find the minimum of a given objective function within specified bounds.
-
-**Arguments:**
-- `f`: The objective function to be minimized.
-- `a`: Vector of lower bounds for the search space.
-- `b`: Vector of upper bounds for the search space.
-- `max_iterations`: (Optional) The maximum number of iterations (default: 100).
-- `min_radius`: (Optional) The minimum radius of hyper-rectangles (default: 1e-5).
-
-**Returns:** 
-- A vector representing the coordinates of the optimal point found.
 
 ## Advanced Usage
 ### Fine-Tuning Optimization:
