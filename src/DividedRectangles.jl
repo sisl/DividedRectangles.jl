@@ -4,10 +4,10 @@ export optimize
 
 # Structure to store information about each rectangle
 struct DirectRectangle
-    center::Vector{Float64}  
-    value::Float64           
-    divisions::Vector{Int}   
-    radius::Float64          
+    center::Vector{Float64}
+    value::Float64
+    divisions::Vector{Int}
+    radius::Float64
 end
 
 # Identifies the rectangles to explore further
@@ -19,10 +19,10 @@ function get_potentially_optimal_rects(rectangles::Vector{DirectRectangle}, min_
 
     for rect in rectangles
         if !isempty(optimal_rects) && rect.radius == optimal_rects[end].radius
-            continue  
+            continue
         end
         if !isempty(optimal_rects) && rect.value <= optimal_rects[end].value
-            pop!(optimal_rects)  
+            pop!(optimal_rects)
         end
         push!(optimal_rects, rect)
     end
@@ -45,6 +45,9 @@ function divide(rect::DirectRectangle, g)
 
             new_center1 = rect.center + delta * (i == 1 ? 1.0 : 0.0)
             new_center2 = rect.center - delta * (i == 1 ? 1.0 : 0.0)
+            
+            # Debugging prints
+            println("New centers: ", new_center1, " and ", new_center2)
 
             push!(smaller_rectangles, DirectRectangle(new_center1, g(new_center1), copy(divisions_copy), delta))
             push!(smaller_rectangles, DirectRectangle(new_center2, g(new_center2), copy(divisions_copy), delta))
@@ -76,5 +79,3 @@ function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int
 end
 
 end
-
-
