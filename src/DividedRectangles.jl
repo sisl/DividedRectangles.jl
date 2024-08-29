@@ -75,4 +75,4 @@ function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int
     return best_rect.center .* (b .- a) .+ a
 end
 
-end
+end # End of module
