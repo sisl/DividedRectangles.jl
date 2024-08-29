@@ -29,5 +29,22 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project on ${{ matrix.os }}
 
+                      - name: Coverbot | Code Coverage
+  # You may pin to the exact commit or the version.
+  # uses: coverbot-io/coverbot-action@05a4e7b754fd96cf76cb43ec013a306543e76015
+  uses: coverbot-io/coverbot-action@v2
+  with:
+    # file format (currently only `elixir` and `go` are supported)
+    format: 
+    # location of json file
+    file: 
+    # Coverbot Token
+    coverbot_api_key: 
+    # GitHub Token
+    github_token: 
+    # If your app is in a subdirectory, specify it here
+    subdirectory: # optional
+          
+
 
 
