@@ -44,7 +44,7 @@ The `optimize` function is the primary function of the `DividedRectangles` modul
 
 **Returns:** 
 - A vector representing the coordinates of the optimal point found.
-- 
+  
 ### Example: Univariate Optimization
 
 The following example demonstrates how to use the DIRECT algorithm to find the minimum of a univariate function:
