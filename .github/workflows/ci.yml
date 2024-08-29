@@ -1,18 +1,25 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out repository
+      uses: actions/checkout@v2
+
     - name: Set up Julia
       uses: julia-actions/setup-julia@v1
       with:
-        version: '1.6'
+        version: '1.10' # Specify the Julia version
 
     - name: Install dependencies
       run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
@@ -20,6 +27,8 @@ jobs:
     - name: Run tests
       run: julia --project=. -e 'using Pkg; Pkg.test()'
 
-    # Disable this step if you want to bypass coverage submission for now
-    # - name: Submit coverage
-    #   run: julia --project=. -e 'using Coverage; Codecov.submit(process_folder())'
+    - name: Upload coverage to Codecov
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # Ensure this is set in your repository secrets
+      run: |
+        julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
