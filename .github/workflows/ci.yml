@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: ["add-tests-only"]
+    branches: [ "add-tests-only" ]
   pull_request:
-    branches: ["add-tests-only"]
+    branches: [ "add-tests-only" ]
   workflow_dispatch:
 
 jobs:
@@ -19,27 +19,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Setup Julia environment
-      - name: Setup Julia
-        uses: julia-actions/setup-julia@v2
+      # This will run on all specified operating systems
+      - name: Run a one-line script
+        run: echo Hello, world! Running on ${{ matrix.os }}
 
-      # Run the Julia script
-      - name: Run tests
+      # Run multiple commands as part of the CI process
+      - name: Run a multi-line script
         run: |
-          julia --project=. -e 'using Pkg; Pkg.instantiate()'
-          julia --project=. -e 'using Pkg; Pkg.test()'
+          echo Add other actions to build,
+          echo test, and deploy your project on ${{ matrix.os }}
 
-      # Upload code coverage to Codecov
-      - name: Upload coverage to Codecov
-        run: |
-          julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
 
-      # Runs a one-line script to confirm job is running on all OSes
-      - name: Confirm OS
-        run: echo "Running on ${{ matrix.os }}"
 
-      # Optional: Add detailed logging
-      - name: Log system information
-        run: |
-          uname -a
-          julia --version
