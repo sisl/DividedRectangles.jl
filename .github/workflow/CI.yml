@@ -1,1 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Julia
+      uses: julia-actions/setup-julia@v1
+      with:
+        version: '1.6'
+    - name: Install dependencies
+      run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+    - name: Run tests
+      run: julia --project=. -e 'using Pkg; Pkg.test()'
+    - name: Run coverage
+      run: julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
 
