@@ -71,7 +71,8 @@ function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int
         end
     end
 
-    best_rect = rectangles[argmin(r -> r.value, rectangles)]
+    best_value, best_rect_index = findmin(r.value for r in rectangles)
+    best_rect = rectangles[best_rect_index]
     return best_rect.center .* (b .- a) .+ a
 end
 
