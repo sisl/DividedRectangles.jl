@@ -4,31 +4,30 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
-    branches:
-      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out repository
+    - name: Check out code
       uses: actions/checkout@v2
 
     - name: Set up Julia
       uses: julia-actions/setup-julia@v1
       with:
-        version: '1.10' # Specify the Julia version
+        version: 1.10.5
 
     - name: Install dependencies
       run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
 
     - name: Run tests
-      run: julia --project=. -e 'using Pkg; Pkg.test()'
+      run: julia --project=. -e 'using Test; include("test/runtests.jl")'
 
     - name: Upload coverage to Codecov
       env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # Ensure this is set in your repository secrets
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       run: |
         julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
