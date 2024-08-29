@@ -7,6 +7,8 @@
 
 ![Static Badge](https://img.shields.io/badge/doc-latest-blue)
 ![Julia version](https://img.shields.io/badge/julia%20version-%5E1.6-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+
 
 **DividedRectangles.jl** provides an implementation of the DIRECT (DIvided RECTangles) algorithm for global optimization. The DIRECT algorithm is particularly useful for optimizing functions where the Lipschitz constant is unknown. This package allows users to perform both univariate and multivariate optimization efficiently.
 
