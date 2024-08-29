@@ -18,7 +18,9 @@
 To install the package, start Julia and run the following command:
 
 ```julia
-Pkg.add("DividedRectangles")
+using Pkg
+Pkg.add(url="https://github.com/sisl/DividedRectangles.jl")
+
 ```
 
 ## Usage
