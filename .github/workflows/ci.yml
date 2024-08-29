@@ -1,38 +1,25 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-  workflow_dispatch:
+on: [push, pull_request]
 
 jobs:
-  test:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v2
+    - name: Set up Julia
+      uses: julia-actions/setup-julia@v1
+      with:
+        version: '1.6'
 
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v1
-        with:
-          version: '1.10'
+    - name: Install dependencies
+      run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
 
-      - name: Install dependencies
-        run: |
-          julia --project=. -e 'using Pkg; Pkg.instantiate()'
+    - name: Run tests
+      run: julia --project=. -e 'using Pkg; Pkg.test()'
 
-      - name: Run tests
-        run: |
-          julia --project=. -e 'using Test; include("test/runtests.jl")'
-
-      - name: Process coverage
-        run: |
-          julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: lcov.info
+    # Temporarily disable this step
+    # - name: Submit coverage
+    #   run: julia --project=. -e 'using Coverage; Codecov.submit(process_folder())'
