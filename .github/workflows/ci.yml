@@ -1,31 +1,38 @@
-name: CI Pipeline
+name: CI
 
 on:
   push:
-    branches: 
-      - main
-      - develop
-  pull_request:
     branches:
       - main
-      - develop
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
-    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Julia
-      uses: julia-actions/setup-julia@v1
-      with:
-        version: '1.10'
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.10'  # Ensure this matches the version you want to test
 
-    - name: Install dependencies
-      run: julia -e 'using Pkg; Pkg.instantiate()'
+      - name: Install dependencies
+        run: |
+          julia --project=. -e 'using Pkg; Pkg.instantiate()'
 
-    - name: Run tests
-      run: julia -e 'using Pkg; Pkg.test()'
+      - name: Run tests
+        run: |
+          julia --project=. -e 'using Pkg; Pkg.test()'
+
+      - name: Process coverage
+        run: |
+          julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: lcov.info
