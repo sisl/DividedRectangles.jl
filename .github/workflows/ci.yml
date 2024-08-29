@@ -26,4 +26,13 @@ jobs:
 
       - name: Run tests
         run: |
-          julia --project=. -e 'using Pkg; Pkg.add("Test"); Pkg.test()'
+          julia --project=. -e 'using Pkg; Pkg.test()'
+
+      - name: Process coverage
+        run: |
+          julia --project=. -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: lcov.info
