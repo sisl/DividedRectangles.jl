@@ -18,7 +18,7 @@ jobs:
       - name: Set up Julia
         uses: julia-actions/setup-julia@v1
         with:
-          version: '1.10'  # Ensure this matches the version you want to test
+          version: '1.10'
 
       - name: Install dependencies
         run: |
