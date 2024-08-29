@@ -20,7 +20,7 @@ jobs:
     - name: Set up Julia
       uses: julia-actions/setup-julia@v1
       with:
-        version: '1.7'
+        version: '1.10'
 
     - name: Install Dependencies
       run: |
@@ -33,4 +33,3 @@ jobs:
     - name: Lint Code
       run: |
         julia -e 'using Pkg; Pkg.add("JuliaFormatter"); using JuliaFormatter; format(".")'
-
