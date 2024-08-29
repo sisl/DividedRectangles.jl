@@ -57,7 +57,7 @@ end
         
         result = optimize(test_function, a, b, max_iterations=100, min_radius=1e-5)
 
-        # Ensure the result is within the bounds and the optimizer achieves high precision
+        # Ensures the result is within the bounds and the optimizer achieves high precision
         @test 0.0 <= result[1] <= 1.0
         @test 0.0 <= result[2] <= 1.0
         @test isapprox(test_function(result), 0.0, atol=1e-5)
