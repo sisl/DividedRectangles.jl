@@ -1,7 +1,3 @@
-# Ensure Test is loaded
-using Pkg
-Pkg.add("Test")
-
 using Test
 using DividedRectangles
 
