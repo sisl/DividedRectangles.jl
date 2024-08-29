@@ -1,12 +1,14 @@
-name: Julia CI
+name: CI Pipeline
 
 on:
   push:
-    branches:
+    branches: 
       - main
+      - develop
   pull_request:
     branches:
       - main
+      - develop
 
 jobs:
   test:
@@ -14,22 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Set up Julia
       uses: julia-actions/setup-julia@v1
       with:
         version: '1.10'
 
-    - name: Install Dependencies
-      run: |
-        julia -e 'using Pkg; Pkg.instantiate()'
+    - name: Install dependencies
+      run: julia -e 'using Pkg; Pkg.instantiate()'
 
-    - name: Run Tests
-      run: |
-        julia -e 'using Pkg; Pkg.test()'
-
-    - name: Lint Code
-      run: |
-        julia -e 'using Pkg; Pkg.add("JuliaFormatter"); using JuliaFormatter; format(".")'
+    - name: Run tests
+      run: julia -e 'using Pkg; Pkg.test()'
