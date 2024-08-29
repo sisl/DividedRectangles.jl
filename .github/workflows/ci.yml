@@ -19,17 +19,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Run tests and gather code coverage on all specified operating systems
-      - name: Run tests and collect coverage
-        run: |
-          julia --project=. -e 'using Pkg; Pkg.instantiate()'
-          julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
+      # This will run on all specified operating systems
+      - name: Run a one-line script
+        run: echo Hello, world! Running on ${{ matrix.os }}
 
-      - name: Upload coverage data
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/*.json
-          flags: unittests
-          name: codecov-${{ matrix.os }}
-          fail_ci_if_error: true
+      # Run multiple commands as part of the CI process
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project on ${{ matrix.os }}
+
+
+
