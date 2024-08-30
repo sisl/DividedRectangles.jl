@@ -17,25 +17,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the repository
-      - name: Check out repository
+      - name: Check out the repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up Julia
       - name: Set up Julia
         uses: julia-actions/setup-julia@v1.5
         with:
-          version: '1.6'  # Adjust this to your preferred Julia version
+          version: '1.6'
 
-      # Step 3: Install dependencies for the documentation
       - name: Install dependencies
         run: julia --project=docs -e 'using Pkg; Pkg.instantiate();'
 
-      # Step 4: Build the documentation
       - name: Build documentation
         run: julia --project=docs docs/make.jl
 
-      # Step 5: Deploy documentation to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
