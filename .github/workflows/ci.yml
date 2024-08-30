@@ -9,7 +9,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +27,7 @@ jobs:
         run: julia -e 'using Pkg; Pkg.instantiate()'
 
       - name: Run tests with coverage
-        run: julia --project=. --code-coverage=test/runtests.jl
+        run: julia --project=. --code-coverage=all test/runtests.jl
 
       - name: Upload coverage to Coveralls  # Or Codecov
         run: julia -e 'using Coverage; Coveralls.submit(Coveralls.process_folder())'
