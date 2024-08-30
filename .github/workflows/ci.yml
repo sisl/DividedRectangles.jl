@@ -16,12 +16,11 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Julia
         if: matrix.os == 'ubuntu-latest'
-        uses: julia-actions/setup-julia@v1.6
+        uses: julia-actions/setup-julia@v1
         with:
           version: '1.10'
 
