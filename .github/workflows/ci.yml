@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    # Use a matrix to run on multiple OS versions
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -18,18 +19,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v1
-        with:
-          version: "1.6"
+      # This will run on all specified operating systems
+      - name: Run a one-line script
+        run: echo Hello, world! Running on ${{ matrix.os }}
 
-      - name: Install Dependencies
-        run: julia -e 'using Pkg; Pkg.instantiate()'
+      # Run multiple commands as part of the CI process
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project on ${{ matrix.os }}
 
-      - name: Run Tests
-        run: julia -e 'using Pkg; Pkg.test(coverage=true)'
-
+      # Collect code coverage and upload it to Codecov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }} # Use your Codecov token here
+          files: ./coverage.json # Adjust this path to where your coverage file is generated
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
