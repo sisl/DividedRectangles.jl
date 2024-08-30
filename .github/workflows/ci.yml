@@ -19,18 +19,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Julia
+      - name: Set up Julia
         uses: julia-actions/setup-julia@v1
         with:
-          version: '1.6'
+          version: '1.10'
 
       - name: Install dependencies
-        run: julia -e 'using Pkg; Pkg.instantiate();'
+        run: julia -e 'using Pkg; Pkg.instantiate()'
 
-      - name: Run tests
-        run: julia -e 'using Pkg; Pkg.test(coverage=true);'
+      - name: Build package
+        run: julia -e 'using Pkg; Pkg.build()'
 
-      - name: Upload to Codecov
+      - name: Run tests with coverage
+        run: julia -e 'using Pkg; Pkg.test(coverage=true)'
+
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
