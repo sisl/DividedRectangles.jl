@@ -29,28 +29,5 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project on ${{ matrix.os }}
 
-      # Install Julia on each OS
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v1
-        with:
-          version: '1.6'  # Or whatever version you are using
 
-      # Install dependencies
-      - name: Install dependencies
-        run: julia -e 'using Pkg; Pkg.instantiate()'
 
-      # Run tests with code coverage
-      - name: Run tests with coverage
-        run: julia --project=. --code-coverage=all test/runtests.jl
-
-      # Upload coverage to Codecov or Coveralls
-      - name: Upload coverage to Codecov  # Use this step for Codecov
-        run: julia -e 'using Coverage; Codecov.submit(Codecov.process_folder())'
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-      # Alternatively, use this step for Coveralls
-      - name: Upload coverage to Coveralls  # Use this step for Coveralls
-        run: julia -e 'using Coverage; Coveralls.submit(Coveralls.process_folder())'
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
