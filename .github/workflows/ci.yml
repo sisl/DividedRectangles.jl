@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "add-tests-only" ]
+    branches: ["add-tests-only"]
   pull_request:
-    branches: [ "add-tests-only" ]
+    branches: ["add-tests-only"]
   workflow_dispatch:
 
 jobs:
@@ -13,17 +13,26 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@v2
+
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v1
         with:
           version: '1.6'
-      - run: julia --project -e 'using Pkg; Pkg.instantiate(); Pkg.build(); Pkg.test(coverage=true)'
+
+      - name: Install dependencies
+        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+
+      - name: Run tests with coverage
+        run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: lcov.info
+          files: coverage/*.lcov
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
