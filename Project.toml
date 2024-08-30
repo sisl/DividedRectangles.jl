@@ -5,3 +5,9 @@ version = "0.1.0"
 
 [compat]
 julia = "1.10"
+
+[extras]
+Test = "b77e0a4c-74ae-5c0d-959a-9c0b98cddf26"
+
+[targets]
+test = ["Test"]
