@@ -29,32 +29,5 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project on ${{ matrix.os }}
 
-      # Set up Julia
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v1
-        with:
-          version: "1.6"  # or the version you want
 
-      # Cache Julia packages
-      - name: Cache Julia packages
-        uses: julia-actions/cache@v1
-      
-      # Build the package
-      - name: Build package
-        run: julia --project=. -e 'using Pkg; Pkg.build()'
 
-      # Run tests
-      - name: Run tests
-        run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
-
-      # Process coverage data
-      - name: Process coverage data
-        run: julia --project=. -e 'using Coverage; Codecov.submit(process_folder())'
-
-      # Upload coverage to Codecov
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: lcov.info  # Replace with the correct path to your coverage file
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
