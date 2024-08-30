@@ -7,33 +7,37 @@ on:
   pull_request:
     branches:
       - main
- 
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        julia-version: [1.10]
-
     steps:
-      - uses: actions/checkout@v4
+      # Step 1: Check out the repository
+      - name: Check out repository
+        uses: actions/checkout@v4
 
+      # Step 2: Set up Julia 1.10
       - name: Set up Julia
         uses: julia-actions/setup-julia@v1.5
         with:
-          version: ${{ matrix.julia-version }}
+          version: '1.10'
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: julia -e 'using Pkg; Pkg.instantiate()'
 
+      # Step 4: Run tests with coverage enabled
       - name: Run tests with coverage
         run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
 
+      # Step 5: Upload coverage to Codecov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}  # Only needed for private repos
-          files: ./coverage/lcov.info          # Path to your coverage report (adjust if needed)
+          # Only needed for private repositories. If your repository is public, you can remove this line.
+          token: ${{ secrets.CODECOV_TOKEN }}
+          # Adjust the path to your coverage report if necessary
+          files: ./coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
