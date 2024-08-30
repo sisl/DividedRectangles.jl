@@ -9,25 +9,23 @@ on:
 
 jobs:
   build:
-    # Use a matrix to run on multiple OS versions
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      # This will run on all specified operating systems
-      - name: Run a one-line script
-        run: echo Hello, world! Running on ${{ matrix.os }}
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.6'
 
-      # Run multiple commands as part of the CI process
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project on ${{ matrix.os }}
+      - name: Install dependencies
+        run: julia -e 'using Pkg; Pkg.instantiate()'
 
+      - name: Run tests with coverage
+        run: julia --project=. --code-coverage=test/runtests.jl
 
-
+      - name: Upload coverage to Coveralls  # Or Codecov
+        run: julia -e 'using Coverage; Coveralls.submit(Coveralls.process_folder())'
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
