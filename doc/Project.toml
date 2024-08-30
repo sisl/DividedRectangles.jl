@@ -3,12 +3,8 @@ uuid = "8f25b07e-6077-4668-9c5e-9c6bcc4ef962"
 authors = ["Integra-Spec-A <Anshrin@gmail.com>"]
 version = "0.1.0"
 
-[deps]
-# Add your package dependencies here, for example:
-Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-
 [extras]
-Test = "8dfed614"
+Test = "8dfed614-eecd-51f4-994c-35f2bf7d4e13"
 
 [targets]
 test = ["Test"]
