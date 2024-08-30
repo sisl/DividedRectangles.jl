@@ -1,1 +1,16 @@
+# codecov.yml
+coverage:
+  status:
+    project:
+      default:
+        target: 80%  # Set the target coverage percentage
+    patch:
+      default:
+        target: 70%  # Set the coverage target for new code in pull requests
+  precision: 2
+  round: down
+  range: "70...100"
+comment:
+  layout: "reach,diff,flags,files,footer"
+  behavior: default
 
