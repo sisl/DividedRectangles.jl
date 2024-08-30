@@ -2,42 +2,32 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "add-tests-only" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "add-tests-only" ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Use a matrix to run on multiple OS versions
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
     steps:
-      # Step 1: Check out the repository
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Step 2: Set up Julia 1.10
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v1.5
-        with:
-          version: '1.10'
+      # This will run on all specified operating systems
+      - name: Run a one-line script
+        run: echo Hello, world! Running on ${{ matrix.os }}
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: julia -e 'using Pkg; Pkg.instantiate()'
+      # Run multiple commands as part of the CI process
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project on ${{ matrix.os }}
 
-      # Step 4: Run tests with coverage enabled
-      - name: Run tests with coverage
-        run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
 
-      # Step 5: Upload coverage to Codecov
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          # Only needed for private repositories. If your repository is public, you can remove this line.
-          token: ${{ secrets.CODECOV_TOKEN }}
-          # Adjust the path to your coverage report if necessary
-          files: ./coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: true
+
