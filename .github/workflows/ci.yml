@@ -9,7 +9,9 @@ on:
 
 jobs:
   build:
+    # Use a matrix to run on multiple OS versions
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -17,14 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # This will run on all specified operating systems
-      - name: Run Tests with Coverage
-        run: julia --project -e 'using Pkg; Pkg.test(coverage=true)'
+      - name: Setup Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.6'
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+      - name: Install dependencies
+        run: julia -e 'using Pkg; Pkg.instantiate();'
+
+      - name: Run tests
+        run: julia -e 'using Pkg; Pkg.test(coverage=true);'
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage.json  # Ensure this path is correct and the file exists
-          fail_ci_if_error: false  # Set to false to avoid pipeline failure if upload fails
-          verbose: true
