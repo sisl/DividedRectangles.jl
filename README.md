@@ -2,7 +2,7 @@
 
 | **Linux** | **macOS** | **Windows** |
 |-----------|-----------|-------------|
-| [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=ubuntu-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=macos-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=windows-latest)](https://github.com/sisl/DividedRectangles.jl/actions) |
+| [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=ubuntu-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=macos-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=windows-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | 
 
 
 ![Static Badge](https://img.shields.io/badge/doc-latest-blue)
