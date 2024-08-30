@@ -3,11 +3,11 @@ uuid = "8f25b07e-6077-4668-9c5e-9c6bcc4ef962"
 authors = ["Integra-Spec-A <Anshrin@gmail.com>"]
 version = "0.1.0"
 
-[deps]
-Test = "8dfed614"
-
 [extras]
-Coverage = "a2441757"  # Coverage tool dependency
+Test = "8dfed614"
 
 [targets]
 test = ["Test"]
+
+[compat]
+julia = "1.10"
