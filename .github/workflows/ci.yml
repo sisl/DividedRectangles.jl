@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-    # Use a matrix to run on multiple OS versions
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -17,38 +16,32 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-      # Step 1: Check out the repository
       - uses: actions/checkout@v4
 
-      # Step 2: Set up Julia (only on Ubuntu, as Julia setup might not be available for all OSes directly)
       - name: Set up Julia
         if: matrix.os == 'ubuntu-latest'
-        uses: julia-actions/setup-julia@v1.5
+        uses: julia-actions/setup-julia@v1
         with:
           version: '1.10'
 
-      # Step 3: Install dependencies (only run on Ubuntu)
       - name: Install dependencies
         if: matrix.os == 'ubuntu-latest'
         run: julia -e 'using Pkg; Pkg.instantiate()'
 
-      # Step 4: Run tests with coverage (only run on Ubuntu)
       - name: Run tests with coverage
         if: matrix.os == 'ubuntu-latest'
         run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
 
-      # Step 5: Upload coverage to Codecov (only run on Ubuntu)
       - name: Upload coverage to Codecov
         if: matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}  # Only needed for private repos
-          files: ./coverage/lcov.info          # Path to your coverage report (adjust if needed)
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
 
-      # Step 6: Run additional commands on all specified operating systems
       - name: Run a one-line script
         run: echo Hello, world! Running on ${{ matrix.os }}
 
