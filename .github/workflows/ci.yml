@@ -18,22 +18,46 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Julia
+      - name: Set up Julia (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
         uses: julia-actions/setup-julia@v1
         with:
           version: '1.10'
 
-      - name: Install dependencies
+      - name: Install dependencies (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
         run: julia -e 'using Pkg; Pkg.instantiate()'
 
-      - name: Run tests with coverage
+      - name: Run tests with coverage (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
         run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
 
-      - name: Upload coverage to Codecov
+      - name: Upload coverage to Codecov (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
+
+      - name: Set up Julia (macOS and Windows)
+        if: matrix.os != 'ubuntu-latest'
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.10'
+
+      - name: Install dependencies (macOS and Windows)
+        if: matrix.os != 'ubuntu-latest'
+        run: julia -e 'using Pkg; Pkg.instantiate()'
+
+      - name: Run tests with coverage (macOS and Windows)
+        if: matrix.os != 'ubuntu-latest'
+        run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
+
+      - name: Upload coverage to Codecov (macOS and Windows)
+        if: matrix.os != 'ubuntu-latest'
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
