@@ -4,7 +4,7 @@ authors = ["Integra-Spec-A <Anshrin@gmail.com>"]
 version = "0.1.0"
 
 [extras]
-Test = "8dfed614"
+Test = "8dfed614-eecd-51f4-994c-35f2bf7d4e13"
 
 [targets]
 test = ["Test"]
