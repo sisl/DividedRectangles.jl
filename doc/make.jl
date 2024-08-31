@@ -24,3 +24,9 @@ makedocs(
         "Credits" => "credits.md"
     ]
 )
+
+deploydocs(
+    repo = "github.com/sisl/DividedRectangles.jl.git",  # Replace with your repository URL
+    branch = "gh-pages",  # GitHub Pages branch
+    target = "build"  # Directory to deploy
+)
