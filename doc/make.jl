@@ -13,7 +13,7 @@ makedocs(
         "Visualization" => "visualization.md",
         "Credits" => "credits.md"
     ],
-    assets = "assets",
+    assets = "assets",  # Optional, only if you have additional assets
     nav = [
         "Home" => "index.md",
         "Installation" => "installation.md",
