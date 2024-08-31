@@ -12,21 +12,11 @@ makedocs(
         "Advanced Usage" => "advanced_usage.md",
         "Visualization" => "visualization.md",
         "Credits" => "credits.md"
-    ],
-    assets = "assets",  # Optional, only if you have additional assets
-    nav = [
-        "Home" => "index.md",
-        "Installation" => "installation.md",
-        "Usage" => "usage.md",
-        "Theory" => "theory.md",
-        "Advanced Usage" => "advanced_usage.md",
-        "Visualization" => "visualization.md",
-        "Credits" => "credits.md"
     ]
 )
 
 deploydocs(
     repo = "github.com/sisl/DividedRectangles.jl.git",  # Replace with your repository URL
-    branch = "gh-pages",  # GitHub Pages branch
-    target = "build"  # Directory to deploy
+    branch = "gh-pages",  # This is the branch where GitHub Pages is served from
+    target = "build"  # Directory where the docs will be built
 )
