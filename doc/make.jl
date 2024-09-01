@@ -16,7 +16,7 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/sisl/DividedRectangles.jl.git",  # Replace with your repository URL
-    branch = "gh-pages",  # This is the branch where GitHub Pages is served from
-    target = "build"  # Directory where the docs will be built
+    repo = "github.com/sisl/DividedRectangles.jl.git",  
+    branch = "gh-pages",  
+    target = "build" 
 )
