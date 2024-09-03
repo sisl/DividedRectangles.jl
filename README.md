@@ -5,7 +5,7 @@
 | [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=ubuntu-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=macos-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/ci.yml/badge.svg?branch=add-tests-only&event=push&os=windows-latest)](https://github.com/sisl/DividedRectangles.jl/actions) | 
 
 
-[![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://sisl.github.io/DividedRectangles.jl/)
+[![Documentation Status](https://img.shields.io/badge/docs-latest-blue.svg)](https://sisl.github.io/DividedRectangles.jl/)
 [![codecov](https://codecov.io/gh/sisl/DividedRectangles.jl/graph/badge.svg?token=YALXFAP7UO)](https://codecov.io/gh/sisl/DividedRectangles.jl)
 
 **DividedRectangles.jl** provides an implementation of the DIRECT (DIvided RECTangles) algorithm for global optimization. The DIRECT algorithm is particularly useful for optimizing functions where the Lipschitz constant is unknown. This package allows users to perform both univariate and multivariate optimization efficiently.
