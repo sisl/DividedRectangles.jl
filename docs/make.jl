@@ -1,9 +1,12 @@
-using Documenter, DividedRectangles
+# Load the required packages
+using Documenter
+using DividedRectangles
 
+# Define the documentation generation process
 makedocs(
-    sitename = "DividedRectangles.jl Documentation",
+    sitename = "DividedRectangles.jl",
     modules = [DividedRectangles],
-    format = Documenter.HTML(prettyurls=true),
+    format = Documenter.HTML(),
     pages = [
         "Home" => "index.md",
         "Installation" => "installation.md",
@@ -16,8 +19,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/sisl/DividedRectangles.jl.git",  
-    branch = "gh-pages",  
-    target = "build" 
+    repo = "github.com/sisl/DividedRectangles.jl.git"
 )
-
