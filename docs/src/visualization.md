@@ -10,7 +10,7 @@ The left contour plot shows the Lipschitz lower bound using five function evalua
 ---
 
 
-![Image 12](../assets/image_12.svg)
+![Image 12](./assets/image_12.svg)
 
 
 The Lipschitz lower bound for different Lipschitz constants (`l`). The estimated minimum changes locally as the Lipschitz constant is varied, and the region in which the minimum lies can also vary.
@@ -18,41 +18,41 @@ The Lipschitz lower bound for different Lipschitz constants (`l`). The estimated
 ---
 
 
-![Image 13](../assets/image_13.svg)
+![Image 13](./assets/image_13.svg)
 
 The DIRECT lower bound for different Lipschitz constants (`l`). The lower bound is not continuous, and while the minimum does not change locally, it can change regionally as the Lipschitz constant changes.
 
 ---
 
 
-![Image 21](../assets/image_21.svg)
+![Image 21](./assets/image_21.svg)
 
 Center-point sampling using the DIRECT scheme, which divides intervals into thirds.
 
 ---
 
 
-![Image 21](../assets/image_21.svg)
+![Image 21](./assets/image_21.svg)
 
 Center-point sampling using the DIRECT scheme, which divides intervals into thirds.
 
 ---
 
 
-![Image 18](../assets/image_18.svg)
+![Image 18](./assets/image_18.svg)
 
 Potentially-optimal hyper-rectangle identification for a particular Lipschitz constant (`l`). Black dots represent DIRECT hyper-rectangles and their location in `(f(c), r)` space. The potentially optimal hyper-rectangles form a piecewise-linear boundary along the lower-right of this space.
 
 ---
 
 
-![Image 20](../assets/image_20.svg)
+![Image 20](./assets/image_20.svg)
 
 The potentially optimal intervals for the DIRECT method form a piecewise boundary that encloses all intervals along the lower-right.
 
 ---
 
 
-![Image 17](../assets/image_17.svg)
+![Image 17](./assets/image_17.svg)
 
 The DIRECT method after 16 iterations on the Branin function. Each cell is bordered by white lines. The cells are much denser around the minima of the Branin function, as the DIRECT method procedurally increases its resolution in those regions.
