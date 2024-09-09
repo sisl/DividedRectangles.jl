@@ -32,13 +32,6 @@ Center-point sampling using the DIRECT scheme, which divides intervals into thir
 ---
 
 
-![Image 21](assets/page_21.svg)
-
-Center-point sampling using the DIRECT scheme, which divides intervals into thirds.
-
----
-
-
 ![Image 18](assets/page_18.svg)
 
 Potentially-optimal hyper-rectangle identification for a particular Lipschitz constant (`l`). Black dots represent DIRECT hyper-rectangles and their location in `(f(c), r)` space. The potentially optimal hyper-rectangles form a piecewise-linear boundary along the lower-right of this space.
