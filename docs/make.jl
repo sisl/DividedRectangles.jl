@@ -12,7 +12,6 @@ makedocs(
         "Installation" => "installation.md",
         "Usage" => "usage.md",
         "Theory" => "theory.md",
-        "Advanced Usage" => "advanced_usage.md",
         "Visualization" => "visualization.md",
         "Credits" => "credits.md"
     ]
