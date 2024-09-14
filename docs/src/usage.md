@@ -1,5 +1,5 @@
 # Usage
-
+ 
 To use the `DividedRectangles` module, start your code with:
 
 ```julia
