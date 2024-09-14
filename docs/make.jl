@@ -12,7 +12,7 @@ makedocs(
         "Installation" => "installation.md",
         "Usage" => "usage.md",
         "Theory" => "theory.md",
-        "Visualization" => "visualization.md",
+        "Algorithm" => "algorithm.md",
         "Credits" => "credits.md"
     ]
 )
