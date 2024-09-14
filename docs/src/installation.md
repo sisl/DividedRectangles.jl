@@ -1,4 +1,4 @@
-# Installation
+# Installation 
 
 To install the package, start Julia and run the following command:
 
