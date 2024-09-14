@@ -70,10 +70,7 @@ The DIRECT lower bound for different Lipschitz constants `. The lower bound is n
 
 ![Image 12](assets/page_12.svg)
 
-The Lipschitz lower bound is an intersection of cones, which creates complicated surfaces in multidimensional space. The divided rectangle lower bound isolates each lower-bound cone toits own hyper-rectangular region, making it trivial to compute the minimum value in each region given a Lipschitz constant.
-
-
-The left contour plot shows such a lower bound using five function evaluations. The right contour plot shows the approximation made by DIRECT, which divides the region into hyper-rectangles—one centered
+The left contour plot shows such a Lipschitz lower bound using five function evaluations. The right contour plot shows the approximation made by DIRECT, which divides the region into hyper-rectangles—one centered
 about each design point. Making this assumption allows for the rapid calculation of the minimum of the lower bound.
 
 ---
