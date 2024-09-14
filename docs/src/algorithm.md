@@ -1,14 +1,13 @@
 # Algorithms
+**Important Note**: The content below is borrowed from Chapter 7, ***"Direct Methods,"*** of the forthcoming second edition of ***"Algorithms for Optimization"*** by Mykel Kochenderfer and Tim Wheeler.
 
-The DIRECT (Divided Rectangles) algorithm incrementally refines a rectangular partition of the design space, using a heuristic inspired by potential Lipschitz constants to guide the refinement. This partitioning allows for global optimization by balancing exploration and exploitation of the design space. 
-
-To simplify the mathematics and avoid oversensitivity to dimensions with larger domains, DIRECT first normalizes the search space to be the unit hypercube.
+The DIRECT algorithm incrementally refines a rectangular partition of the design space, using a heuristic inspired by potential Lipschitz constants to guide the refinement. This partitioning allows for global optimization by balancing exploration and exploitation of the design space. 
 
 ## Normalization:
 
-DIRECT first normalizes the search space to be the unit hypercube. 
+To simplify the mathematics and avoid oversensitivity to dimensions with larger domains, DIRECT first normalizes the search space to be the unit hypercube.
 
-If we are minimizing $f(\mathbf{x})$ in the interval between lower and upper ranges $\mathbf{a}$ and $\mathbf{b}$ DIRECT will instead minimize:
+If we are minimizing $f(\mathbf{x})$ in the interval between lower and upper ranges ($\mathbf{a}$) and ($\mathbf{b}$) DIRECT will instead minimize:
 
 $$
 g(\mathbf{x}) = f(\mathbf{x} \odot (\mathbf{b} - \mathbf{a}) + \mathbf{a})
@@ -54,21 +53,23 @@ This lower bound helps guide the decision of which intervals to split. The inter
 ## Visulizations:
 To better understand the optimization process, here are some visualizations that represent different stages and aspects of the DIRECT algorithm's progress:
 
-![Image 14](assets/page_14.svg)
-
+![Image 13](assets/page_13.svg)
 
 The Lipschitz lower bound for different Lipschitz constants. Not only does the estimated minimum change locally as the Lipschitz constant is varied, the region in which the minimum lies can vary as well.
 
 
 ---
 
-![Image 13](assets/page_13.svg)
+![Image 14](assets/page_14.svg)
 
 The DIRECT lower bound for different Lipschitz constants `. The lower bound is not continuous. The minimum does not change locally but can change regionally as the Lipschitz constant changes
 
 ---
 
 ![Image 12](assets/page_12.svg)
+
+The Lipschitz lower bound is an intersection of cones, which creates complicated surfaces in multidimensional space. The divided rectangle lower bound isolates each lower-bound cone toits own hyper-rectangular region, making it trivial to compute the minimum value in each region given a Lipschitz constant.
+
 
 The left contour plot shows such a lower bound using five function evaluations. The right contour plot shows the approximation made by DIRECT, which divides the region into hyper-rectangles—one centered
 about each design point. Making this assumption allows for the rapid calculation of the minimum of the lower bound.
@@ -85,7 +86,7 @@ The potentially optimal intervals for the DIRECT method form a piecewise boundar
 
 ![Image 20](assets/page_20.svg)
 
-Potentially-optimal hyper-rectangle identification for a particular Lipschitz constant. Black dots represent DIRECT hyper-rectangles and their location in (f(c),r) space. A black line of slope ` is drawn through the dot belonging to the best interval. The dots for all other hyper-rectangles
+Potentially-optimal hyper-rectangle identification for a particular Lipschitz constant. Black dots represent DIRECT hyper-rectangles and their location in $(f(\mathbf{c}), r)$ space. A black line of slope is drawn through the dot belonging to the best interval. The dots for all other hyper-rectangles
 must lie on or above this line.
 
 ---
