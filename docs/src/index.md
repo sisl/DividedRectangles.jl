@@ -15,8 +15,8 @@ f(x) = \sum_{i=1}^{n} c_i x_i
 ```
 
 where:
-- \( x_i \) represents the variables.
-- \( c_i \) represents the coefficients corresponding to each variable.
+- ($x_i$) represents the variables.
+- ($c_i$) represents the coefficients corresponding to each variable.
 
 This equation forms the basis for dividing the search space into smaller rectangles, optimizing the function by evaluating it at specific points.
 
