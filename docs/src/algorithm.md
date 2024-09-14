@@ -1,7 +1,9 @@
 # Algorithms  
-**Important Note**: The content below is borrowed from Chapter 7, ***"Direct Methods,"*** of the forthcoming second edition of ***"Algorithms for Optimization"*** by Mykel Kochenderfer and Tim Wheeler.
+**Important Note**: The content below is borrowed from Chapter 7, "Direct Methods," of the forthcoming second edition of "Algorithms for Optimization" by Mykel Kochenderfer and Tim Wheeler.
 
 The DIRECT algorithm incrementally refines a rectangular partition of the design space, using a heuristic inspired by potential Lipschitz constants to guide the refinement. This partitioning allows for global optimization by balancing exploration and exploitation of the design space. 
+
+---
 
 ## Normalization:
 
