@@ -1,5 +1,5 @@
 # Theory
-
+ 
 The DIRECT (DIvided RECTangles) algorithm is a global optimization method that does not require a known Lipschitz constant. This characteristic makes it particularly robust and versatile, applicable to a wide range of optimization problems. The algorithm operates by dividing the search space into smaller hyper-rectangles and evaluating the function at the center of each rectangle.
 
 ### Key Concepts of the DIRECT Algorithm
