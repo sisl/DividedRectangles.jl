@@ -171,6 +171,7 @@ $$
 
 where \( a_i \) and \( b_i \) are the bounds of the rectangle along the \( i \)-th dimension.
 
+---
 
 ### Strengths of the DIRECT Algorithm
 
