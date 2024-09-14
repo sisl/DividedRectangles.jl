@@ -1,4 +1,4 @@
-# DividedRectangles.jl
+# DividedRectangles.jl 
 
 [![CI](https://github.com/sisl/DividedRectangles.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/sisl/DividedRectangles.jl/actions/workflows/CI.yml)
 [![Documentation Status](https://img.shields.io/badge/docs-latest-blue.svg)](https://sisl.github.io/DividedRectangles.jl/)
@@ -10,13 +10,13 @@
 ### Key Equation:
 The algorithm is guided by the following fundamental equation:
 
-$$
+```math
 f(x) = \sum_{i=1}^{n} c_i x_i
-$$
+```
 
 where:
-- \( x_i \) represents the variables.
-- \( c_i \) represents the coefficients corresponding to each variable.
+- ($x_i$) represents the variables.
+- ($c_i$) represents the coefficients corresponding to each variable.
 
 This equation forms the basis for dividing the search space into smaller rectangles, optimizing the function by evaluating it at specific points.
 
@@ -116,10 +116,11 @@ println("Optimal value found at: ", result)
 - `max_iterations`:  Maximum number of iterations to run the optimization. The default is 100.
 - `min_radius`: The minimum allowable size of a hyper-rectangle (default: '1e-5').
 
-## Theory
-
+# Theory
+ 
 The DIRECT (DIvided RECTangles) algorithm is a global optimization method that does not require a known Lipschitz constant. This characteristic makes it particularly robust and versatile, applicable to a wide range of optimization problems. The algorithm operates by dividing the search space into smaller hyper-rectangles and evaluating the function at the center of each rectangle.
 
+---
 ### Key Concepts of the DIRECT Algorithm
 
 1. **Division of Search Space**:
@@ -137,39 +138,38 @@ The DIRECT (DIvided RECTangles) algorithm is a global optimization method that d
    - The selected rectangles are further divided, and the process repeats.
    - The algorithm continues to refine the search by focusing more on regions that are likely to contain the global minimum.
 
+---
+
 ## Mathematical Formulation
 The algorithm relies on the following core mathematical principles:
 
 **Evaluation Function**:  
-The objective function \( f(x) \) is evaluated at the center of each hyper-rectangle:
+The objective function $f(x)$ is evaluated at the center of each hyper-rectangle:
 
-$$
+```math
 f(x) = \sum_{i=1}^{n} c_i x_i
-$$
+```
 
-where \( x_i \) are the variables, and \( c_i \) are the corresponding coefficients.
+where ($x_i$) are the variables, and ($c_i$) are the corresponding coefficients.
 
-**Rectangle Selection Criterion**:  
-A rectangle \( R \) is considered potentially optimal if:
-
-$$
-f(x_R) - L \cdot r_R \leq f(x) - L \cdot r_x \quad \text{for all } x \in R
-$$
-
-where:
-
-- `f(x_R)` is the function value at the center of the rectangle.
-- `r_R` is the radius of the rectangle.
-- `L` is the Lipschitz constant.
+- **Rectangle Selection Criterion**:
+  A rectangle ($R$) is considered potentially optimal if:
+```math
+  f(x_R) - L \cdot r_R \leq f(x) - L \cdot r_x \quad \text{for all } x \in R
+```
+  where:
+  - $f(x_R)$ is the function value at the center of the rectangle.
+  - ($r_R$) is the radius of the rectangle.
+  -  ($L$) is the Lipschitz constant.
 
 **Recursive Division**:  
 The hyper-rectangles are recursively divided along their longest dimension:
 
-$$
+```math
 x_R = \frac{a_i + b_i}{2}
-$$
+```
 
-where \( a_i \) and \( b_i \) are the bounds of the rectangle along the \( i \)-th dimension.
+where ($a_i$) and ($b_i$) are the bounds of the rectangle along the ($i$)-th dimension.
 
 ---
 
