@@ -9,15 +9,15 @@ To simplify the mathematics and avoid oversensitivity to dimensions with larger 
 
 If we are minimizing $f(\mathbf{x})$ in the interval between lower and upper ranges ($\mathbf{a}$) and ($\mathbf{b}$) DIRECT will instead minimize:
 
-$$
+```math
 g(\mathbf{x}) = f(\mathbf{x} \odot (\mathbf{b} - \mathbf{a}) + \mathbf{a})
-$$
+```
 
 After finding the minimum $f(\mathbf{x})$ of ($g$), the minimum of ($f$) is:
 
-$$
+```math
 \mathbf{x}^* \odot (\mathbf{b} - \mathbf{a}) + \mathbf{a}
-$$
+```
 
 ---
 
@@ -42,9 +42,9 @@ DIRECT splits the identified intervals along their longest dimensions, dividing 
 
 The Lipschitz lower bound for an interval is a circular cone extending downwards from its center ($\mathbf{c}^{(i)}$):
 
-$$
+```math
 f(\mathbf{x}) \geq f(\mathbf{c}^{(i)}) - \ell \|\mathbf{x} - \mathbf{c}^{(i)}\|_2
-$$
+```
 
 This lower bound helps guide the decision of which intervals to split. The intervals for which a Lipschitz constant ($\ell$) exists such that the interval contains the Lipschitz lower bound are selected for further subdivision.
 
