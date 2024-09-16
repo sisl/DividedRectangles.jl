@@ -15,8 +15,8 @@ f(x) = \sum_{i=1}^{n} c_i x_i
 ```
 
 where:
-- ($x_i$) represents the variables.
-- ($c_i$) represents the coefficients corresponding to each variable.
+- $x_i$ represents the variables.
+- $c_i$ represents the coefficients corresponding to each variable.
 
 This equation forms the basis for dividing the search space into smaller rectangles, optimizing the function by evaluating it at specific points.
 
@@ -150,7 +150,7 @@ The objective function $f(x)$ is evaluated at the center of each hyper-rectangle
 f(x) = \sum_{i=1}^{n} c_i x_i
 ```
 
-where ($x_i$) are the variables, and ($c_i$) are the corresponding coefficients.
+where $x_i$ are the variables, and $c_i$ are the corresponding coefficients.
 
 - **Rectangle Selection Criterion**:
   A rectangle ($R$) is considered potentially optimal if:
@@ -159,8 +159,8 @@ where ($x_i$) are the variables, and ($c_i$) are the corresponding coefficients.
 ```
   where:
   - $f(x_R)$ is the function value at the center of the rectangle.
-  - ($r_R$) is the radius of the rectangle.
-  -  ($L$) is the Lipschitz constant.
+  - $r_R$ is the radius of the rectangle.
+  -  $L$ is the Lipschitz constant.
 
 **Recursive Division**:  
 The hyper-rectangles are recursively divided along their longest dimension:
@@ -169,7 +169,7 @@ The hyper-rectangles are recursively divided along their longest dimension:
 x_R = \frac{a_i + b_i}{2}
 ```
 
-where ($a_i$) and ($b_i$) are the bounds of the rectangle along the ($i$)-th dimension.
+where $a_i$ and $b_i$ are the bounds of the rectangle along the $i$-th dimension.
 
 ---
 
