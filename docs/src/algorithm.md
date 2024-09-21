@@ -38,27 +38,6 @@ DIRECT begins every iteration by identifying intervals to be split with addition
 
 DIRECT splits the identified intervals along their longest dimensions, dividing each interval into thirds. These splits refine the resolution in areas of interest, increasing accuracy near the minimum while avoiding excessive evaluations in less promising regions. The heuristic ensures that intervals are split in a way that balances the need for exploring the global space and refining local areas of interest.
 
-### Visualizations: 
----
-
-![Image 17](assets/page_17.svg)
-
-The figure above shows the progression of the univariate DIRECT method on this objective function, with intervals chosen for splitting rendered in blue.
-
-![Image 18](assets/page_18.svg)
-
-Interval splitting in multiple dimensions for DIRECT requires choosing an ordering for the split dimensions.
-
-![Image 21](assets/page_21.svg)
-
-The potentially optimal intervals for the DIRECT method form a piecewise boundary that encloses all intervals along the lower-right. Each dot corresponds to a hyper-rectangle.
-
-![Image 20](assets/page_20.svg)
-
-Potentially-optimal hyper-rectangle identification for a particular Lipschitz constant. Black dots represent DIRECT hyper-rectangles and their location in $f(c,r)$ space. A black line of slope is drawn through the dot belonging to the best interval. The dots for all other hyper-rectangles
-must lie on or above this line.
-
----
 
 ## Lipschitz Lower Bound
 
@@ -70,21 +49,97 @@ f(\mathbf{x}) \geq f(\mathbf{c}^{(i)}) - \ell \|\mathbf{x} - \mathbf{c}^{(i)}\|_
 
 This lower bound helps guide the decision of which intervals to split. The intervals for which a Lipschitz constant $\ell$ exists such that the interval contains the Lipschitz lower bound are selected for further subdivision.
 
-### Visualizations: 
 ---
-![Image 12](assets/page_12.svg)
 
-The left contour plot shows such a Lipschitz lower bound using five function evaluations. The right contour plot shows the approximation made by DIRECT, which divides the region into hyper-rectangles—one centered
-about each design point. Making this assumption allows for the rapid calculation of the minimum of the lower bound.
+## Potentially Optimal Intervals:
 
+DIRECT does not rely on a fixed Lipschitz constant. Instead, it selects potentially optimal intervals—those where a Lipschitz constant \( \ell \) could exist that makes the interval contain the global minimum. The process of identifying these intervals forms a **lower-right convex hull** in \( (r, f(c)) \)-space, which guides the algorithm to split the most promising intervals.
 
-![Image 13](assets/page_13.svg)
+---
+## DIRECT Algorithm Implementation
 
-The Lipschitz lower bound for different Lipschitz constants. Not only does the estimated minimum change locally as the Lipschitz constant is varied, the region in which the minimum lies can vary as well.
+This code defines the DIRECT algorithm. The algorithm outputs the best coordinate after iteratively splitting and refining hyperrectangles in the search space.
 
+```juliaverbatim
+struct DirectRectangle
+    c # center point
+    y # center point value
+    d # number of divisions per dimension
+    r # the radius of the interval
+end
 
-![Image 14](assets/page_14.svg)
+function direct(f, a, b, k_max, r_min)
+    g = x -> f(x.*(b-a) + a) # evaluate within unit hypercube
 
-The DIRECT lower bound for different Lipschitz constants `. The lower bound is not continuous. The minimum does not change locally but can change regionally as the Lipschitz constant changes
+    n = length(a)
+    c = fill(0.5, n)
+    □s = [DirectRectangle(c, g(c), fill(0, n), sqrt(0.5^n))]
 
+    c_best = c
+    for k in 1 : k_max
+        □s_split = get_split_intervals(□s, r_min)
+        setdiff!(□s, □s_split)
+        for □_split in □s_split
+            append!(□s, split_interval(□_split, g))
+        end
+        c_best = □s[findmin(□.y for □ in □s)[2]].c
+    end
+
+    return c_best.*(b-a) + a # from unit hypercube
+end
+```
+This supporting function selects the intervals for splitting based on the radius and objective function values, maintaining a convex hull of potentially optimal intervals:
+
+```juliaverbatim
+function get_split_intervals(□s, r_min)
+    hull = DirectRectangle[]
+    # Sort the rects by increasing r, then by increasing y
+    sort!(□s, by = □ -> (□.r, □.y))
+    for □ in □s
+        if length(hull) ≥ 1 && □.r == hull[end].r
+            continue
+        end
+        if length(hull) ≥ 1 && □.y ≤ hull[end].y
+            pop!(hull)
+        end
+        if length(hull) ≥ 2 && is_ccw(hull[end-1], hull[end], □)
+            pop!(hull)
+        end
+        push!(hull, □)
+    end
+    # Only split intervals larger than the minimum radius
+    filter!(□ -> □.r ≥ r_min, hull)
+    return hull
+end
+```
+This function handles the splitting of a selected interval along its axes, producing smaller intervals for further evaluation:
+
+```juliaverbatim
+function split_interval(□, g)
+    c, n, d_min, d = □.c, length(□.c), minimum(□.d), copy(□.d)
+    dirs, δ = findall(d .== d_min), 3.0^(-d_min-1)
+    Cs = [(c + δ*basis(i,n), c - δ*basis(i,n)) for i in dirs]
+    Ys = [(g(C[1]), g(C[2])) for C in Cs]
+    minvals = [min(Y[1], Y[2]) for Y in Ys]
+
+    # Split the axes in order by increasing minimum value.
+    □s = DirectRectangle[]
+    for j in sortperm(minvals)
+        d[dirs[j]] += 1
+        C, Y, r = Cs[j], Ys[j], norm(0.5*3.0.^(-d))
+        push!(□s, DirectRectangle(C[1], Y[1], copy(d), r))
+        push!(□s, DirectRectangle(C[2], Y[2], copy(d), r))
+    end
+    r = norm(0.5*3.0.^(-d))
+    push!(□s, DirectRectangle(c, □.y, d, r))
+    return □s
+end
+```
+Parameters:
+
+- `f`: the multidimensional objective function
+- `a`: Vector of lower bounds for the search space.
+- `b`: Vector of upper bounds for the search space.
+- `k_max`: the number of iterations
+- `r_min`: the minimum interval radius
 
