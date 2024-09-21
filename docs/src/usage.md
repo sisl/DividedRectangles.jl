@@ -16,12 +16,13 @@ To use the `optimize` function with a custom mathematical function:
 using DividedRectangles
 
 # Define the objective function
-f(x) = sum(c * xi for (c, xi) in zip(coeffs, x))
+f(x) = dot(coeffs, x)
 
 # Call the optimization function
 result = optimize(f, a, b)
 
 println("Optimal value found at: ", result)
+
 ```
 
 **Arguments:**
@@ -32,27 +33,8 @@ println("Optimal value found at: ", result)
 - `min_radius`: (Optional) The minimum radius of hyper-rectangles (default: 1e-5).
 
 **Returns:** 
-- A vector representing the coordinates of the optimal point found.
-  
-### Example: Univariate Optimization
-
-The following example demonstrates how to use the DIRECT algorithm to find the minimum of a univariate function:
-
-```julia
-using DividedRectangles
-
-# Define the objective function
-f(x) = sin(5 * x) + cos(2 * x)
-
-# Set the search bounds
-a = [-1.0]
-b = [2.0]
-
-# Optimize
-result = DividedRectangles.optimize(f, a, b)
-
-println("Optimal value found at: ", result)
-```
+- The best design 𝑥 found by DIRECT.
+---
 
 ### Example: Multivariate Optimization
 
