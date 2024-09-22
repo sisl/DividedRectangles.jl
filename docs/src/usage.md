@@ -70,7 +70,6 @@ println("Best design found: ", result)
 - `b`: Vector representing the upper bounds of the search space.
 - `max_iterations`:  Maximum number of iterations for the optimization (default: 100).
 - `min_radius`: Minimum size of hyper-rectangles (`default: 1e-5`).
-- 
 ---
 
 ## Advanced Usage
