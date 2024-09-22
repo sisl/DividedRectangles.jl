@@ -21,7 +21,7 @@ After finding the minimum $x^*$ of $g$, the minimum of $f$ is
 ```
 ---
 
-- The figure below shows DIRECT method after 16 iterations on the Branin function (see the test functions section in the appendix). The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase resolution in promising regions.
+- The figure below shows DIRECT method after 16 iterations on the Branin function. The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase resolution in promising regions.
 
 ![page_11](https://github.com/user-attachments/assets/b833bedd-41aa-40c5-a27f-26188a171797)
 
@@ -47,7 +47,7 @@ f(c^{(i)}) - \ell r^{(i)}
 ```
 ---
 
-- The left plot shows the intervals for the DIRECT method after 5 iterations on the Branin function, see the test functions section in the appendix. The right plot shows the interval objective function values versus their radii, which is useful for identifying intervals to split with further evaluations.
+- The left plot shows the intervals for the DIRECT method after 5 iterations on the Branin function. The right plot shows the interval objective function values versus their radii, which is useful for identifying intervals to split with further evaluations.
 
 ![page_12](https://github.com/user-attachments/assets/34da1f5e-c983-45cc-8b6c-531184d4b756)
 
@@ -77,11 +77,11 @@ f(c^{(i)}) - \ell r^{(i)}
 
 ## Splitting Intervals
 
-When splitting a region without equal side lengths, only the longest dimensions are split (figure 7.17). Splitting proceeds on these dimensions in the same manner as with a hypercube. The width in a given dimension depends on how many times that dimension has been split. Since DIRECT always splits axis directions by thirds, a dimension
+When splitting a region without equal side lengths, only the longest dimensions are split. Splitting proceeds on these dimensions in the same manner as with a hypercube. The width in a given dimension depends on how many times that dimension has been split. Since DIRECT always splits axis directions by thirds, a dimension
 that has been split d times will have a width of $3^−d$. If we have $n$ dimensions and track how many times each dimension of a given interval has been split in a vector $d$, then the radius of that interval is
 
 ```math
-r = \sqrt{\left( \frac{1}{2 \cdot 3^{-d_1}} \right)^2 , \ldots , \left( \frac{1}{2 \cdot 3^{-d_n}} \right)^2}
+r = \left\|\left[ \frac{1}{2 \cdot 3^{-d_1}}, \dots, \frac{1}{2 \cdot 3^{-d_n}} \right]\right\|_2
 ```
 ---
 - **Interval splitting in multiple dimensions for DIRECT** requires choosing an ordering for the split dimensions:
