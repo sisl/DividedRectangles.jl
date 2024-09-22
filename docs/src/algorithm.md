@@ -11,7 +11,9 @@ Additionally, by not requiring the Lipschitz constant, the DIRECT algorithm is a
 - The figure below shows the DIRECT method after 16 iterations on the Branin function. The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase its resolution in promising regions.
 
 ![page_11](https://github.com/user-attachments/assets/b833bedd-41aa-40c5-a27f-26188a171797)
+
 ---
+
 ### Key Concepts of the DIRECT Algorithm
 
 1. **Search Space**:
