@@ -9,12 +9,9 @@
 
 **DividedRectangles.jl** provides an implementation of the DIRECT (DIvided RECTangles) [algorithm for global optimization](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Lipschitzian+optimization+without+the+Lipschitz+constant&btnG=). The DIRECT algorithm is particularly useful for optimizing functions where the Lipschitz constant is unknown. This package allows users to perform both univariate and multivariate optimization efficiently.
 
-- The figure below shows the DIRECT method after 16 iterations on the Branin function. The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase its resolution in promising regions.
+The figure below shows the DIRECT method after 16 iterations on the Branin function. The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase its resolution in promising regions.
 
 ![page_11](https://github.com/user-attachments/assets/b833bedd-41aa-40c5-a27f-26188a171797)
-
-
-This documentation provides detailed usage examples, theoretical background, and advanced customization options to help you get the most out of `DividedRectangles.jl`.
 
 ## Installation
 
@@ -25,7 +22,7 @@ using Pkg
 Pkg.add(url="https://github.com/sisl/DividedRectangles.jl")
 
 ```
-# Usage  
+## Usage  
  
 To use the `DividedRectangles` module, start your code with:
 
@@ -33,9 +30,6 @@ To use the `DividedRectangles` module, start your code with:
 using DividedRectangles
 ```
 
-## Core Functions
-
-### `optimize`
 The `optimize` function is the primary function of the `DividedRectangles` module. It implements the DIRECT algorithm to find the minimum of a given objective function within specified bounds.
 
 To use the `optimize` function with a custom objective function::
@@ -65,7 +59,7 @@ println("Best design found: ", result)
 - `min_radius`: (Optional) The minimum radius of hyper-rectangles (default: 1e-5).
 
 **Returns:** 
-- The best design 𝑥 found by DIRECT.
+- The best design `x` found by DIRECT.
 
 ## Credits
 
