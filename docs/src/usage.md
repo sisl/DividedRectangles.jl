@@ -5,7 +5,6 @@ To use the `DividedRectangles` module, start your code with:
 ```julia
 using DividedRectangles
 ```
----
 
 ## Core Functions
 
@@ -40,4 +39,3 @@ println("Best design found: ", result)
 
 **Returns:** 
 - The best design 𝑥 found by DIRECT.
----
