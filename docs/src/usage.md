@@ -73,7 +73,7 @@ The `optimize` function offers several parameters for fine-tuning the optimizati
 
 - `max_iterations`: Sets the maximum number of iterations. Increasing this value can improve accuracy but requires more computational time.
 - `min_radius`: Specifies the minimum size of hyper-rectangles to control the granularity of the search.
-- 
+
 ```julia
 result = DividedRectangles.optimize(f, a, b, max_iterations=500, min_radius=1e-6)
 ```
