@@ -2,85 +2,110 @@ module DividedRectangles
 
 export optimize, direct
 
-# Structure to store information about each rectangle
+"""
+A structure for store information about each hyperrectangular interval.
+"""
 struct DirectRectangle
-    center::Vector{Float64}  
-    value::Float64           
-    divisions::Vector{Int}   
-    radius::Float64          
+    c::Vector{Float64} # center point
+    y::Float64         # center point value   
+    d::Vector{Int}     # number of divisions per dimension
+    r::Float64         # interval radius
 end
 
-# Identifies the rectangles to explore further
-function get_potentially_optimal_rects(rectangles::Vector{DirectRectangle}, min_radius::Float64)
-    optimal_rects = DirectRectangle[]
+"""
+A helper function that determines whether a→b→c is counter-clockwise in (r,y) space.
+"""
+function is_ccw(a::DirectRectangle, b::DirectRectangle, c::DirectRectangle)
+    return a.r*(b.y-c.y)-a.y*(b.r-c.r)+(b.r*c.y-b.y*c.r) < 1e-6
+end
 
-    # Sorts the rectangles by size and then by function value
-    sort!(rectangles, by = r -> (r.radius, r.value))
-
-    for rect in rectangles
-        if !isempty(optimal_rects) && rect.radius == optimal_rects[end].radius
-            continue  
+"""
+A routine for obtaining the split intervals from a given list of intervals and a minimum radius.
+The potentially optimal intervals form a lower-right convex hull in $r$ and $y$.
+"""
+function get_split_intervals(□s::Vector{DirectRectangle}, r_min::Float64)
+    hull = DirectRectangle[]
+    # Sort the rects by increasing r, then by increasing y
+    sort!(□s, by = □ -> (□.r, □.y))
+    for □ in □s
+        if length(hull) ≥ 1 && □.r == hull[end].r
+            # Repeated r values cannot be improvements
+            continue
         end
-        if !isempty(optimal_rects) && rect.value <= optimal_rects[end].value
-            pop!(optimal_rects)  
+        if length(hull) ≥ 1 && □.y ≤ hull[end].y
+            # Remove the last point if the new one is better
+            pop!(hull)
         end
-        push!(optimal_rects, rect)
+        if length(hull) ≥ 2 && is_ccw(hull[end-1], hull[end], □)
+            # Remove the last point if the new one is better
+            pop!(hull)
+        end
+        push!(hull, □)
     end
-
-    filter!(r -> r.radius >= min_radius, optimal_rects)
-    return optimal_rects
+    # Only split intervals larger than the minimum radius
+    filter!(□ -> □.r ≥ r_min, hull)
+    return hull
 end
 
-# Splits the rectangle into smaller pieces
-function divide(rect::DirectRectangle, g)
-    n = length(rect.center)
-    smallest_division = minimum(rect.divisions)
-    divisions_copy = copy(rect.divisions)
+"""
+An implementation of DIRECT that runs for the given number of iterations and 
+then returns all hyperrectangular intervals.
+"""
+function direct(f, a::Vector{Float64}, b::Vector{Float64};
+    max_iterations::Int = 100, min_radius::Float64 = 1e-5)
+    
+    g = x -> f(x.*(b-a) + a) # evaluate within unit hypercube
 
-    smaller_rectangles = DirectRectangle[]
-    for i in 1:n
-        if rect.divisions[i] == smallest_division
-            delta = 3.0^(-smallest_division-1)
-            divisions_copy[i] += 1
-
-            new_center1 = rect.center .+ delta * (i == 1 ? 1.0 : 0.0)
-            new_center2 = rect.center .- delta * (i == 1 ? 1.0 : 0.0)
-
-            push!(smaller_rectangles, DirectRectangle(new_center1, g(new_center1), copy(divisions_copy), delta))
-            push!(smaller_rectangles, DirectRectangle(new_center2, g(new_center2), copy(divisions_copy), delta))
-        end
-    end
-
-    return smaller_rectangles
-end
-
-# Function that returns all the rectangles
-function direct(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
-    g = x -> f(x .* (b .- a) .+ a)
     n = length(a)
-    initial_center = fill(0.5, n)
-    initial_rectangle = DirectRectangle(initial_center, g(initial_center), fill(0, n), sqrt(0.5^n))
+    c = fill(0.5, n)
+    □s = [DirectRectangle(c, g(c), fill(0, n), sqrt(0.5^n))]
 
-    rectangles = [initial_rectangle]
-
-    for _ in 1:max_iterations
-        optimal_rects = get_potentially_optimal_rects(rectangles, min_radius)
-        setdiff!(rectangles, optimal_rects)
-        for rect in optimal_rects
-            append!(rectangles, divide(rect, g))
+    for k in 1 : max_iterations
+        □s_split = get_split_intervals(□s, r_min)
+        setdiff!(□s, □s_split)
+        for □_split in □s_split
+            append!(□s, split_interval(□_split, g))
         end
     end
 
-    return rectangles
+    return □s
 end
 
-# Main function that runs the DIRECT optimization algorithm and returns the best design
-function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
-    rectangles = direct(f, a, b, max_iterations=max_iterations, min_radius=min_radius)
+"""
+Split the given interval, where g is the objective function in the unit hypercube.
+This method returns a list of the resulting smaller intervals.
+"""
+function split_interval(□, g)
+    c, n, d_min, d = □.c, length(□.c), minimum(□.d), copy(□.d)
+    dirs, δ = findall(d .== d_min), 3.0^(-d_min-1)
+    # Sample the objective function in all split directions,
+    # and track the minimum value in each axis.
+    Cs = [(c + δ*basis(i,n), c - δ*basis(i,n)) for i in dirs]
+    Ys = [(g(C[1]), g(C[2])) for C in Cs]
+    minvals = [min(Y[1], Y[2]) for Y in Ys]
 
-    best_value, best_rect_index = findmin(r.value for r in rectangles)
-    best_rect = rectangles[best_rect_index]
-    return best_rect.center .* (b .- a) .+ a
+    # Split the axes in order by increasing minimum value.
+    □s = DirectRectangle[]
+    for j in sortperm(minvals)
+        d[dirs[j]] += 1 # increment the number of splits
+        C, Y, r = Cs[j], Ys[j], norm(0.5*3.0.^(-d))
+        push!(□s, DirectRectangle(C[1], Y[1], copy(d), r))
+        push!(□s, DirectRectangle(C[2], Y[2], copy(d), r))
+    end
+    r = norm(0.5*3.0.^(-d))
+    push!(□s, DirectRectangle(c, □.y, d, r))
+    return □s
 end
 
+"""
+The primary method provided by DividedRectangles.jl, which is used to
+optimize an objective function and return the best design found.
+"""
+function optimize(f, a::Vector{Float64}, b::Vector{Float64};
+        max_iterations::Int = 100, min_radius::Float64 = 1e-5)
+    □s = direct(f, a, b, max_iterations=max_iterations, min_radius=min_radius)
+    c_best = □s[findmin(□.y for □ in □s)[2]].c
+    return c_best.*(b-a) + a # from unit hypercube
 end
+
+end # end module
