@@ -1,5 +1,7 @@
 module DividedRectangles
 
+using LinearAlgebra
+
 export optimize, direct
 
 """
