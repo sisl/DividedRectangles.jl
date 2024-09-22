@@ -21,7 +21,7 @@ end
 
 """
 A routine for obtaining the split intervals from a given list of intervals and a minimum radius.
-The potentially optimal intervals form a lower-right convex hull in $r$ and $y$.
+The potentially optimal intervals form a lower-right convex hull in r and y.
 """
 function get_split_intervals(□s::Vector{DirectRectangle}, r_min::Float64)
     hull = DirectRectangle[]
