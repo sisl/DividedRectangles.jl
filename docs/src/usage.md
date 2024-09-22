@@ -6,9 +6,6 @@ To use the `DividedRectangles` module, start your code with:
 using DividedRectangles
 ```
 
-## Core Functions
-
-### `optimize`
 The `optimize` function is the primary function of the `DividedRectangles` module. It implements the DIRECT algorithm to find the minimum of a given objective function within specified bounds.
 
 To use the `optimize` function with a custom objective function::
@@ -38,4 +35,4 @@ println("Best design found: ", result)
 - `min_radius`: (Optional) The minimum radius of hyper-rectangles (default: 1e-5).
 
 **Returns:** 
-- The best design 𝑥 found by DIRECT.
+- The best design `x` found by DIRECT.
