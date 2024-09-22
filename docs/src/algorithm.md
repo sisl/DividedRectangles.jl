@@ -83,7 +83,7 @@ f(c^{(i)}) - \ell r^{(i)}
 ## Splitting Intervals
 
 When splitting a region without equal side lengths, only the longest dimensions are split. Splitting proceeds on these dimensions in the same manner as with a hypercube. The width in a given dimension depends on how many times that dimension has been split. Since DIRECT always splits axis directions by thirds, a dimension
-that has been split d times will have a width of $3^{−d}$. If we have $n$ dimensions and track how many times each dimension of a given interval has been split in a vector $d$, then the radius of that interval is
+that has been split $d$ times will have a width of $3^{−d}$. If we have $n$ dimensions and track how many times each dimension of a given interval has been split in a vector $d$, then the radius of that interval is
 
 ```math
 r = \left\|\left[ \frac{1}{2 \cdot 3^{-d_1}}, \dots, \frac{1}{2 \cdot 3^{-d_n}} \right]\right\|_2
