@@ -16,12 +16,16 @@ To use the `optimize` function with a custom mathematical function:
 using DividedRectangles
 
 # Define the objective function
-f(x) = dot(coeffs, x)
+f(x) = dot([1.0, 2.0, 3.0], x)  # Example objective function with coefficients
+
+# Set the search bounds
+a = [0.0, 0.0, 0.0]
+b = [1.0, 1.0, 1.0]
 
 # Call the optimization function
 result = optimize(f, a, b)
 
-println("Optimal value found at: ", result)
+println("Best design found: ", result)
 
 ```
 
@@ -53,24 +57,23 @@ b = [2.0, 2.0]
 # Optimize
 result = DividedRectangles.optimize(f, a, b)
 
-println("Optimal value found at: ", result)
+println("Best design found: ", result)
 ```
 
 ### Parameters
 - `f`: This is the objective function to minimize. Should be an operation that accepts a vector of Float64 values.
-- `a`: A vector with the lower bounds to be used in the search space.
-- `b`: An upper-bound vector for the search space.
-- `max_iterations`:  Maximum number of iterations to run the optimization. The default is 100.
-- `min_radius`: The minimum allowable size of a hyper-rectangle (default: '1e-5').
+- `a`: Vector representing the lower bounds of the search space.
+- `b`: Vector representing the upper bounds of the search space.
+- `max_iterations`:  Maximum number of iterations for the optimization (default: 100).
+- `min_radius`: Minimum size of hyper-rectangles (`default: 1e-5`).
 
 ## Advanced Usage
 ### Fine-Tuning Optimization:
 The `optimize` function offers several parameters for fine-tuning the optimization process:
 
-- `max_iterations`: Sets the maximum number of iterations to perform. Increasing this value may improve the accuracy of the result but will require more computational time.
-- `min_radius`: Specifies the minimum allowable size of the hyper-rectangles. This can be adjusted to control the granularity of the search.
-Example with custom parameters:
-
+- `max_iterations`: Sets the maximum number of iterations. Increasing this value can improve accuracy but requires more computational time.
+- `min_radius`: Specifies the minimum size of hyper-rectangles to control the granularity of the search.
+- 
 ```julia
 result = DividedRectangles.optimize(f, a, b, max_iterations=500, min_radius=1e-6)
 ```
