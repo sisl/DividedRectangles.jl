@@ -21,7 +21,7 @@ After finding the minimum $x^*$ of $g$, the minimum of $f$ is
 ```
 ---
 
-1. The figure below shows DIRECT method after 16 iterations on the Branin function (see the test functions section in the appendix). The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase resolution in promising regions.
+- The figure below shows DIRECT method after 16 iterations on the Branin function (see the test functions section in the appendix). The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase resolution in promising regions.
 
 ![page_11](https://github.com/user-attachments/assets/b833bedd-41aa-40c5-a27f-26188a171797)
 
@@ -47,15 +47,15 @@ f(c^{(i)}) - \ell r^{(i)}
 ```
 ---
 
-1. The left plot shows the intervals for the DIRECT method after 5 iterations on the Branin function, see the test functions section in the appendix. The right plot shows the interval objective function values versus their radii, which is useful for identifying intervals to split with further evaluations.
+- The left plot shows the intervals for the DIRECT method after 5 iterations on the Branin function, see the test functions section in the appendix. The right plot shows the interval objective function values versus their radii, which is useful for identifying intervals to split with further evaluations.
 
 ![page_12](https://github.com/user-attachments/assets/34da1f5e-c983-45cc-8b6c-531184d4b756)
 
-2. The left plot shows the Lipschitz lowerbounds constructed for the DIRECT intervals using the Lipschitz constant = 200, and highlights one interval. The right plot shows how the minimum value for the lowerbound within the highlighted interval is the same as the x-intercept for a line of slope passing through that interval’s $(r, f(c))$ point.
+- The left plot shows the Lipschitz lowerbounds constructed for the DIRECT intervals using the Lipschitz constant = 200, and highlights one interval. The right plot shows how the minimum value for the lowerbound within the highlighted interval is the same as the x-intercept for a line of slope passing through that interval’s $(r, f(c))$ point.
 
 ![page_13](https://github.com/user-attachments/assets/f023e6b0-ee8a-48fb-a8b6-c1b68d819377)
 
-3. The left plot continues to show the Lipschitz lowerbounds constructed for the DIRECT intervals using the Lipschitz constant = 200, but now highlights the interval containing the lowest value. The right plot shows how the lowest lowerbound for a given Lipschitz constant is the one with the lowest x-intercept in the right-hand plot.
+- The left plot continues to show the Lipschitz lowerbounds constructed for the DIRECT intervals using the Lipschitz constant = 200, but now highlights the interval containing the lowest value. The right plot shows how the lowest lowerbound for a given Lipschitz constant is the one with the lowest x-intercept in the right-hand plot.
 
 ![page_14](https://github.com/user-attachments/assets/7df39f70-2ef2-4eaa-a5de-54f93d21e653)
 
@@ -69,7 +69,7 @@ f(c^{(i)}) - \ell r^{(i)}
 
 ---
 
-The left plot shows the split intervals identified for this iteration of DIRECT on the Branin function. The right plot shows the lower-right convex hull formed by these split intervals in $(r, f(c))$ space.
+- The left plot shows the split intervals identified for this iteration of DIRECT on the Branin function. The right plot shows the lower-right convex hull formed by these split intervals in $(r, f(c))$ space.
 
 ![page_15](https://github.com/user-attachments/assets/5142788b-814e-4221-b50f-1746672278df)
 
@@ -95,7 +95,7 @@ r = \sqrt{\left( \frac{1}{2 \cdot 3^{-d_1}} \right)^2 , \ldots , \left( \frac{1}
 ---
 ## Practical Implementations: 
 
-1. Struct `DirectRectangle`:
+- Struct `DirectRectangle`:
 
 ```julia
    struct DirectRectangle
@@ -106,7 +106,7 @@ r = \sqrt{\left( \frac{1}{2 \cdot 3^{-d_1}} \right)^2 , \ldots , \left( \frac{1}
 end
 ```
 
-2. `direct` Function:
+- `direct` Function:
 
 ```julia
 function direct(f, a, b, k_max, r_min)
@@ -126,14 +126,14 @@ function direct(f, a, b, k_max, r_min)
     return c_best .* (b - a) + a  # from unit hypercube
 end
 ```
-3. `is_ccw` Function:
+- `is_ccw` Function:
    
 ```julia
 function is_ccw(a, b, c)
     return a.r * (b.y - c.y) - a.y * (b.r - c.r) + (b.r * c.y - b.y * c.r) < 1e-6
 end
 ```
-4.`get_split_intervals`Function
+- `get_split_intervals`Function
 
 ```julia
 function get_split_intervals(□s, r_min)
@@ -155,7 +155,7 @@ function get_split_intervals(□s, r_min)
     return hull
 end
 ```
-5. `split_interval` Function:
+-  `split_interval` Function:
 
 ```julia
 function split_interval(□, g)
