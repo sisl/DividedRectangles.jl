@@ -11,7 +11,6 @@ makedocs(
         "Home" => "index.md",
         "Installation" => "installation.md",
         "Usage" => "usage.md",
-        "Theory" => "theory.md",
         "Algorithm" => "algorithm.md",
         "Credits" => "credits.md"
     ]
