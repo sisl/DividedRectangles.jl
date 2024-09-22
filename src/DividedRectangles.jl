@@ -20,6 +20,11 @@ function is_ccw(a::DirectRectangle, b::DirectRectangle, c::DirectRectangle)
 end
 
 """
+A helper function that returns a basis vector with a single 1 entry in an otherwise zero vector.
+"""
+basis(i, n) = [k == i ? 1.0 : 0.0 for k in 1 : n]
+
+"""
 A routine for obtaining the split intervals from a given list of intervals and a minimum radius.
 The potentially optimal intervals form a lower-right convex hull in r and y.
 """
