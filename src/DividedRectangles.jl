@@ -1,6 +1,6 @@
 module DividedRectangles
 
-export optimize
+export optimize, direct
 
 # Structure to store information about each rectangle
 struct DirectRectangle
@@ -54,8 +54,8 @@ function divide(rect::DirectRectangle, g)
     return smaller_rectangles
 end
 
-# Main function that runs the DIRECT optimization algorithm
-function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
+# Function that returns all the rectangles
+function direct(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
     g = x -> f(x .* (b .- a) .+ a)
     n = length(a)
     initial_center = fill(0.5, n)
@@ -70,6 +70,13 @@ function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int
             append!(rectangles, divide(rect, g))
         end
     end
+
+    return rectangles
+end
+
+# Main function that runs the DIRECT optimization algorithm and returns the best design
+function optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
+    rectangles = direct(f, a, b, max_iterations=max_iterations, min_radius=min_radius)
 
     best_value, best_rect_index = findmin(r.value for r in rectangles)
     best_rect = rectangles[best_rect_index]
