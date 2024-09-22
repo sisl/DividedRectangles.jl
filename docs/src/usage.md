@@ -64,3 +64,15 @@ intervals = direct(f, a, b, max_iterations=10, min_radius=1e-4)
 
 **Returns:** 
 - All hyperrectangular intervals maintained by DIRECT.
+
+## Functions and Types
+
+```@docs
+DividedRectangles.basis
+DividedRectangles.is_ccw
+DividedRectangles.DirectRectangle
+DividedRectangles.split_interval
+DividedRectangles.get_split_intervals
+DividedRectangles.direct
+DividedRectangles.optimize
+```
