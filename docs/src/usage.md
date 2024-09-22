@@ -5,6 +5,9 @@ To use the `DividedRectangles` module, start your code with:
 ```julia
 using DividedRectangles
 ```
+
+---
+
 ## Core Functions
 
 ### `optimize`
@@ -59,6 +62,7 @@ result = DividedRectangles.optimize(f, a, b)
 
 println("Best design found: ", result)
 ```
+---
 
 ### Parameters
 - `f`: This is the objective function to minimize. Should be an operation that accepts a vector of Float64 values.
@@ -66,6 +70,8 @@ println("Best design found: ", result)
 - `b`: Vector representing the upper bounds of the search space.
 - `max_iterations`:  Maximum number of iterations for the optimization (default: 100).
 - `min_radius`: Minimum size of hyper-rectangles (`default: 1e-5`).
+- 
+---
 
 ## Advanced Usage
 ### Fine-Tuning Optimization:
