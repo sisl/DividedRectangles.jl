@@ -84,11 +84,11 @@ that has been split d times will have a width of $3^−d$. If we have $n$ dimens
 r = \sqrt{\left( \frac{1}{2 \cdot 3^{-d_1}} \right)^2 , \ldots , \left( \frac{1}{2 \cdot 3^{-d_n}} \right)^2}
 ```
 ---
-1. Interval splitting in multiple dimensions for DIRECT requires choosing an ordering for the split dimensions
+- Interval splitting in multiple dimensions for DIRECT requires choosing an ordering for the split dimensions
 
 ![page_16](https://github.com/user-attachments/assets/962993d9-372a-4733-9d1f-0260cdacdff1)
 
-2. DIRECT will only split the longest dimensions of intervals.  The algorithm only divides intervals larger than a minimum radius. This minimum radius prevents inefficient function evaluations very close to existing points.
+- DIRECT will only split the longest dimensions of intervals.  The algorithm only divides intervals larger than a minimum radius. This minimum radius prevents inefficient function evaluations very close to existing points.
 
 ![page_17](https://github.com/user-attachments/assets/99caea66-02b5-4371-90e2-69305c035ddf)
 
