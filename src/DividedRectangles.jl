@@ -48,30 +48,6 @@ function get_split_intervals(□s::Vector{DirectRectangle}, r_min::Float64)
 end
 
 """
-An implementation of DIRECT that runs for the given number of iterations and 
-then returns all hyperrectangular intervals.
-"""
-function direct(f, a::Vector{Float64}, b::Vector{Float64};
-    max_iterations::Int = 100, min_radius::Float64 = 1e-5)
-    
-    g = x -> f(x.*(b-a) + a) # evaluate within unit hypercube
-
-    n = length(a)
-    c = fill(0.5, n)
-    □s = [DirectRectangle(c, g(c), fill(0, n), sqrt(0.5^n))]
-
-    for k in 1 : max_iterations
-        □s_split = get_split_intervals(□s, r_min)
-        setdiff!(□s, □s_split)
-        for □_split in □s_split
-            append!(□s, split_interval(□_split, g))
-        end
-    end
-
-    return □s
-end
-
-"""
 Split the given interval, where g is the objective function in the unit hypercube.
 This method returns a list of the resulting smaller intervals.
 """
@@ -94,6 +70,30 @@ function split_interval(□, g)
     end
     r = norm(0.5*3.0.^(-d))
     push!(□s, DirectRectangle(c, □.y, d, r))
+    return □s
+end
+
+"""
+An implementation of DIRECT that runs for the given number of iterations and 
+then returns all hyperrectangular intervals.
+"""
+function direct(f, a::Vector{Float64}, b::Vector{Float64};
+    max_iterations::Int = 100, min_radius::Float64 = 1e-5)
+    
+    g = x -> f(x.*(b-a) + a) # evaluate within unit hypercube
+
+    n = length(a)
+    c = fill(0.5, n)
+    □s = [DirectRectangle(c, g(c), fill(0, n), sqrt(0.5^n))]
+
+    for k in 1 : max_iterations
+        □s_split = get_split_intervals(□s, min_radius)
+        setdiff!(□s, □s_split)
+        for □_split in □s_split
+            append!(□s, split_interval(□_split, g))
+        end
+    end
+
     return □s
 end
 
