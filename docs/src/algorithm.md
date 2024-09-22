@@ -8,7 +8,7 @@ Additionally, by not requiring the Lipschitz constant, the DIRECT algorithm is a
 
 ---
 
-- The figure below shows the DIRECT method after 16 iterations on the Branin function. The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase its resolution in promising regions..
+- The figure below shows the DIRECT method after 16 iterations on the Branin function. The cells are much denser around the minima of the Branin function because the DIRECT method is designed to increase its resolution in promising regions.
 
 ![page_11](https://github.com/user-attachments/assets/b833bedd-41aa-40c5-a27f-26188a171797)
 ---
@@ -23,7 +23,7 @@ Additionally, by not requiring the Lipschitz constant, the DIRECT algorithm is a
    g(\mathbf{x}) = f(\mathbf{x} \odot (\mathbf{b} - \mathbf{a}) + \mathbf{a})
 ```
 
-After finding the minimum $x^*$ of $g$, The minimizer of $f$ is
+After finding the minimum $x^*$ of $g$, The minimizer of $f$ is:
 
 ```math
 \mathbf{x}^* \odot (\mathbf{b} - \mathbf{a}) + \mathbf{a}
@@ -33,7 +33,7 @@ After finding the minimum $x^*$ of $g$, The minimizer of $f$ is
 2. **Function Evaluation**:
    - DIRECT partitions its search space into hyperrectangular intervals.
    - The objective function is evaluated at the center of each hyper-rectangle.
-   - Each interval has a center $c^{(i)}$, an associated objective function value $f(c^{(i)})$, and a radius $r^{(i)}$. The radius is the distance from the center to a vertex."
+   - Each interval has a center $c^{(i)}$, an associated objective function value $f(c^{(i)})$, and a radius $r^{(i)}$. The radius is the distance from the center to a vertex.
 
 4. **Selection of Potentially Optimal Rectangles**:
    - In each iteration, the algorithm identifies potentially optimal rectangles. A rectangle is considered potentially optimal if it could contain the global minimum based on the evaluations performed so far.
