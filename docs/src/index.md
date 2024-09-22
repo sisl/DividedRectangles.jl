@@ -7,18 +7,17 @@
 
 **DividedRectangles.jl** provides an implementation of the DIRECT (DIvided RECTangles) [algorithm for global optimization](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Lipschitzian+optimization+without+the+Lipschitz+constant&btnG=). The DIRECT algorithm is particularly useful for optimizing functions where the Lipschitz constant is unknown. This package allows users to perform both univariate and multivariate optimization efficiently.
 
-### Key Equation:
-The algorithm is guided by the following fundamental equation:
+Example Objective Function:
+As an example of an objective function, consider:
 
-```math
-f(x) = \sum_{i=1}^{n} c_i x_i
+```julia
+f(x) = dot(coeffs, x)
 ```
-
 where:
-- $x_i$ represents the variables.
-- $c_i$ represents the coefficients corresponding to each variable.
+- `x`: represents the variables.
+- `coeffs`: represents the coefficients corresponding to each variable.
 
-This equation forms the basis for dividing the search space into smaller rectangles, optimizing the function by evaluating it at specific points.
+This is just one possible objective function that could be optimized using the DIRECT algorithm. The algorithm works by dividing the search space into smaller rectangles and evaluating the function at specific points within these rectangles to find the optimal solution.
 
 ---
 
