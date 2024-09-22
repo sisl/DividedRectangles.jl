@@ -1,4 +1,4 @@
-# Algorithm
+# Algorithm 
  
 The divided rectangles algorithm, or DIRECT (for DIvided RECTangles), incrementally refines a retangular partition of the design space. The refinement is driven a heuristic that involves reasoning about potential Lipschitz constants.
 
