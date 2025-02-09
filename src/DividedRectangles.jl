@@ -5,20 +5,29 @@ using LinearAlgebra
 export optimize, direct
 
 """
-A structure for store information about each hyperrectangular interval.
+    DirectRectangle
+
+A data structure representing a hyperrectangular interval in the normalized unit hypercube [0, 1]^n,
+used by the DIRECT (DIvided RECTangles) global optimization algorithm.
+
+# Fields
+- `c::Vector{Float64}`: The center point of the interval, given as a vector in [0, 1]^n.
+- `y::Float64`: The value of the objective function evaluated at the center `c`.
+- `d::Vector{Int}`: The count of divisions along each dimension.
+- `r::Float64`: The "radius" of the hyperrectangle, computed as `r = norm(0.5 * 3.0.^(-d))`.
 """
 struct DirectRectangle
-    c::Vector{Float64} # center point
-    y::Float64         # center point value   
-    d::Vector{Int}     # number of divisions per dimension
-    r::Float64         # interval radius
+    c::Vector{Float64}
+    y::Float64
+    d::Vector{Int}
+    r::Float64
 end
 
 """
 A helper function that determines whether a→b→c is counter-clockwise in (r,y) space.
 """
-function is_ccw(a::DirectRectangle, b::DirectRectangle, c::DirectRectangle)
-    return a.r * (b.y - c.y) - a.y * (b.r - c.r) + (b.r * c.y - b.y * c.r) < 1e-6
+function is_ccw(a::DirectRectangle, b::DirectRectangle, c::DirectRectangle; tol::Float64=1e-6)
+    return a.r * (b.y - c.y) - a.y * (b.r - c.r) + (b.r * c.y - b.y * c.r) < tol
 end
 
 """
@@ -81,8 +90,26 @@ function split_interval(□, g)
 end
 
 """
-An implementation of DIRECT that runs for the given number of iterations and 
-then returns all hyperrectangular intervals.
+    direct(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
+
+Implements the DIRECT (DIvided RECTangles) algorithm to perform global optimization by iteratively subdividing
+the search space. The algorithm operates in the normalized unit hypercube [0, 1]^n, where the mapping from the
+original search space (given by bounds `a` and `b`) to the unit hypercube is performed on-the-fly.
+
+# Arguments
+- `f`: The objective function to be minimized. It should accept a vector of real numbers and return a scalar.
+- `a::Vector{Float64}`: A vector of lower bounds for each dimension of the original search space.
+- `b::Vector{Float64}`: A vector of upper bounds for each dimension of the original search space.
+- `max_iterations::Int`: The maximum number of iterations to execute (default is 100).
+- `min_radius::Float64`: The minimum allowed hyperrectangle radius for further subdivision (default is 1e-5).
+
+# Returns
+- A vector of `DirectRectangle` instances representing the final set of hyperrectangular intervals after the
+  specified number of iterations. Each `DirectRectangle` contains:
+    - `c`: the center point (in the unit hypercube),
+    - `y`: the objective function value at the center,
+    - `d`: the division count per dimension,
+    - `r`: the computed radius of the rectangle.
 """
 function direct(f, a::Vector{Float64}, b::Vector{Float64};
     max_iterations::Int=100, min_radius::Float64=1e-5)
@@ -105,8 +132,21 @@ function direct(f, a::Vector{Float64}, b::Vector{Float64};
 end
 
 """
-The primary method provided by DividedRectangles.jl, which is used to
-optimize an objective function and return the best design found.
+    optimize(f, a::Vector{Float64}, b::Vector{Float64}; max_iterations::Int = 100, min_radius::Float64 = 1e-5)
+
+The primary optimization routine of the DividedRectangles module. It uses the DIRECT algorithm to search for
+the global minimum of the objective function `f` over a bounded search space defined by `a` and `b`.
+
+# Arguments
+- `f`: The objective function to be minimized. Must be defined for inputs in ℝⁿ.
+- `a::Vector{Float64}`: A vector of lower bounds for the search space.
+- `b::Vector{Float64}`: A vector of upper bounds for the search space.
+- `max_iterations::Int`: (Optional) The maximum number of iterations for the DIRECT algorithm (default is 100).
+- `min_radius::Float64`: (Optional) The minimum radius below which hyperrectangles are no longer subdivided (default is 1e-5).
+
+# Returns
+- A vector of `Float64` representing the best design (i.e., the point in the original search space) found
+  by the DIRECT algorithm.
 """
 function optimize(f, a::Vector{Float64}, b::Vector{Float64};
     max_iterations::Int=100, min_radius::Float64=1e-5)
