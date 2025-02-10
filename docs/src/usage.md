@@ -6,11 +6,15 @@ To use the `DividedRectangles` module, start your code with:
 using DividedRectangles
 ```
 
-The `optimize` function is the primary function of the `DividedRectangles` module. It implements the DIRECT algorithm to find the minimum of a given objective function within specified bounds.
+The [`optimize`](@ref) function is the primary function of the `DividedRectangles` module. It implements the DIRECT algorithm to find the minimum of a given objective function within specified bounds. 
 
-To use the `optimize` function with a custom objective function::
+The package also provides [`direct`](@ref), which is the same as [`optimize`](@ref) except it returns all hyperrectangular intervals.
 
-```julia
+For details on function arguments and return values, see the documentation for [`optimize`](@ref) and [`direct`](@ref).
+
+## Example: Optimizing a Multivariate Function
+
+```@example
 using DividedRectangles
 
 # Define the objective function
@@ -26,21 +30,8 @@ result = optimize(f, a, b)
 println("Best design found: ", result)
 
 ```
-
-**Arguments:**
-- `f`: The objective function to be minimized.
-- `a`: Vector of lower bounds for the search space.
-- `b`: Vector of upper bounds for the search space.
-- `max_iterations`: (Optional) The maximum number of iterations (default: 100).
-- `min_radius`: (Optional) The minimum radius of hyper-rectangles (default: 1e-5).
-
-**Returns:** 
-- The best design `x` found by DIRECT.
-
-
-The package also provides `direct`, which is the same as `optimize` except it returns all hyperrectangular intervals:
-
-```julia
+## Example: Returning All Hyperrectangular Intervals
+```@example
 using DividedRectangles
 
 # Define the objective function
@@ -55,24 +46,14 @@ intervals = direct(f, a, b, max_iterations=10, min_radius=1e-4)
 
 ```
 
-**Arguments:**
-- `f`: The objective function to be minimized.
-- `a`: Vector of lower bounds for the search space.
-- `b`: Vector of upper bounds for the search space.
-- `max_iterations`: (Optional) The maximum number of iterations (default: 100).
-- `min_radius`: (Optional) The minimum radius of hyper-rectangles (default: 1e-5).
-
-**Returns:** 
-- All hyperrectangular intervals maintained by DIRECT.
-
 ## Functions and Types
 
 ```@docs
+DividedRectangles.direct
+DividedRectangles.optimize
 DividedRectangles.basis
 DividedRectangles.is_ccw
 DividedRectangles.DirectRectangle
 DividedRectangles.split_interval
 DividedRectangles.get_split_intervals
-DividedRectangles.direct
-DividedRectangles.optimize
 ```
