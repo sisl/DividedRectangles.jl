@@ -17,5 +17,6 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/sisl/DividedRectangles.jl.git"
+    repo = "github.com/sisl/DividedRectangles.jl.git",
+    push_preview=true
 )
