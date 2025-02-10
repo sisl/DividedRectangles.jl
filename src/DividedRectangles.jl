@@ -4,6 +4,9 @@ using LinearAlgebra
 
 export optimize, direct
 
+# A default tolerance value for the is_ccw function.
+const DEFAULT_CCW_TOL = 1e-6
+
 """
     DirectRectangle
 
@@ -24,20 +27,42 @@ struct DirectRectangle
 end
 
 """
-A helper function that determines whether a→b→c is counter-clockwise in (r,y) space.
+    is_ccw(a, b, c; tol=DEFAULT_CCW_TOL)
+
+Determines whether the sequence of hyperrectangles `a → b → c` forms a counter-clockwise turn in the `(r, y)` space.
+
+# Arguments
+- `a::DirectRectangle, b::DirectRectangle, c::DirectRectangle`: Hyperrectangles whose `(r, y)` values are compared.
+- `tol::Float64`: (Optional) Tolerance for the counter-clockwise test (default: `DEFAULT_CCW_TOL`).
+
+# Returns
+- `true` if the computed expression is less than `tol`, indicating a counter-clockwise configuration;
+  otherwise, returns `false`.
 """
-function is_ccw(a::DirectRectangle, b::DirectRectangle, c::DirectRectangle; tol::Float64=1e-6)
+function is_ccw(a::DirectRectangle, b::DirectRectangle, c::DirectRectangle; tol::Float64=DEFAULT_CCW_TOL)
     return a.r * (b.y - c.y) - a.y * (b.r - c.r) + (b.r * c.y - b.y * c.r) < tol
 end
 
 """
-A helper function that returns a basis vector with a single 1 entry in an otherwise zero vector.
+    basis(i, n)
+
+Returns the `i`th standard basis vector of length `n`.
 """
 basis(i, n) = [k == i ? 1.0 : 0.0 for k in 1:n]
 
 """
-A routine for obtaining the split intervals from a given list of intervals and a minimum radius.
-The potentially optimal intervals form a lower-right convex hull in r and y.
+    get_split_intervals(□s, r_min)
+
+Selects hyperrectangles from the list `□s` that are candidates for splitting.
+This routine uses a convex-hull criterion in the `(r, y)` space to identify potentially optimal
+intervals, then filters out any with a radius smaller than `r_min`.
+
+# Arguments
+- `□s::Vector{DirectRectangle}`: The current list of hyperrectangular intervals.
+- `r_min::Float64`: The minimum allowable radius for an interval to be considered for splitting.
+
+# Returns
+- A vector of `DirectRectangle` instances that are eligible for further subdivision.
 """
 function get_split_intervals(□s::Vector{DirectRectangle}, r_min::Float64)
     hull = DirectRectangle[]
@@ -64,8 +89,18 @@ function get_split_intervals(□s::Vector{DirectRectangle}, r_min::Float64)
 end
 
 """
-Split the given interval, where g is the objective function in the unit hypercube.
-This method returns a list of the resulting smaller intervals.
+    split_interval(□, g)
+
+Splits the hyperrectangular interval `□` along the dimensions with the smallest number of subdivisions.
+The objective function `g` is evaluated at new points corresponding to split directions. The resulting
+smaller intervals are returned.
+
+# Arguments
+- `□::DirectRectangle`: The hyperrectangle to be subdivided.
+- `g`: A function mapping a point in the unit hypercube to its objective function value.
+
+# Returns
+- A vector of new `DirectRectangle` instances resulting from the subdivision of `□`.
 """
 function split_interval(□, g)
     c, n, d_min, d = □.c, length(□.c), minimum(□.d), copy(□.d)
